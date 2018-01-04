@@ -1,0 +1,47 @@
+{
+    "Tests":
+    [
+        {
+            "Wait":3000,
+            "Convey":"confirm that this clone in partya is a member",
+            "Zome": "congress",
+            "FnName": "getMembers",
+            "Input": "",
+            "Exposure":"public",
+            "Regexp": "{\"address\":\"%key%\",\"memberSince\":.*,\"name\":\"partya.%clone%@.*\"}"
+        },
+        {
+            "Convey": "All partya members add a proposal",
+            "Zome": "congress",
+            "FnName": "newProposal",
+            "Input": {"description":"012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789 save the %partya.%clone%%","recipient":"%implementer_key%","amount":100,"votingDeadline":"Sat Dec 16 2018 08:29:35 GMT-0500 (EST)"},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "and fund it fund the proposal",
+            "Zome": "congress",
+            "FnName": "fundProposal",
+            "Input": {
+                "amount": 100,
+                "proposal": {"%result%":1}
+            },
+            "Output": "%h1%"
+        },
+        {
+            "Time":5000,
+            "Convey": "and vote in favor of their own parties proposals",
+            "Zome": "congress",
+            "Raw": true,
+            "Input": "var proposals = getProposals('');for (var i=0;i<proposals.length;i++) {vote({proposal:proposals[i].hash,inSupport:true,justification:'I vote down the party line'})};proposals.length",
+            "Output": "4"
+        },
+        {
+            "Time":19000,
+            "Convey": "it should return current voting status",
+            "Zome": "congress",
+            "FnName": "votingStatus",
+            "Input": {"%result%":1},
+            "Output": {"numberOfVotes":7,"excecuted":true,"currentResult":1}
+        }
+    ]
+}

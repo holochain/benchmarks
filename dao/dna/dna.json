@@ -1,0 +1,235 @@
+{
+    "Version": 1,
+    "UUID": "1b4400ce-df71-11e7-8f0e-54ee75d2f20c",
+    "Name": "holodao",
+    "RequiresVersion": 19,
+    "DHTConfig": {
+        "HashType": "sha2-256"
+    },
+    "Properties": {
+        "description": "holochain equivalent of the Ethereum dao contract",
+        "language": "en",
+        "progenitorHash":"QmQXSJoGkwdF2R7Xgc5cJXhKoRRdUKPHLLtTu3VqfGdqoV",
+        "progenitorIdentity":"the progenitor",
+        "creditLimit":"500"
+    },
+    "Progenitor": {
+        "Identity": "the progentior",
+        "PubKey": [8, 1, 18, 32, 193, 43, 31, 148, 23, 249, 163, 154, 128, 25, 237, 167, 253, 63, 214, 220, 206, 131, 217, 74, 168, 30, 215, 237, 231, 160, 69, 89, 48, 17, 104, 210]
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "Zomes": [
+        {
+            "Name": "owned",
+            "Description": "port of owned contract",
+            "CodeFile": "owned.js",
+            "Entries": [
+                {
+                    "Name": "owner_links",
+                    "DataFormat": "links"
+                }
+            ],
+            "RibosomeType": "js",
+            "Functions": [
+                {
+                    "Name": "transferOwnership",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getOwner",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ]
+        },
+        {
+            "Name": "congress",
+            "Description": "port of congress contract",
+            "CodeFile": "congress.js",
+            "RibosomeType": "js",
+            "Entries": [
+                {
+                   "Name": "proposal",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "proposal.json"
+                },
+                {
+                   "Name": "completion",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "completion.json"
+                },
+                {
+                   "Name": "member",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "member.json"
+                },
+                {
+                   "Name": "vote",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "vote.json"
+                },
+                {
+                   "Name": "rules",
+                    "DataFormat": "json",
+                    "Sharing": "public",
+                    "SchemaFile": "rules.json"
+                },
+                {
+                    "Name": "member_links",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "proposal_links",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "completion_links",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "vote_links",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "rules_links",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "funding_links",
+                    "DataFormat": "links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "isMember",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "addMember",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getMembers",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "removeMember",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "newProposal",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getProposals",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "changeVotingRules",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getVotingRules",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "vote",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getVotes",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "votingStatus",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "fundProposal",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "executeProposal",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "proposalExists",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "completionExists",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                }
+            ]
+        },
+        {
+            "Name": "transactions",
+            "Description": "Execution and validation of mutual credit transactions",
+            "CodeFile": "transactions.js",
+            "Entries": [
+                {
+                    "Name": "transaction",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "transaction.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "preauth",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "preauth.json",
+                    "Sharing": "public"
+                }
+            ],
+            "RibosomeType": "js",
+            "Functions": [
+                {
+                    "Name": "transactionCreate",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "transactionRead",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getBalance",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "preauthCreate",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "preauthCancel",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "Identity":"the progenitor",
+    "Tests": [
+        {
+            "Convey": "initial rules should be set up at genesis",
+            "Zome": "congress",
+            "FnName": "getVotingRules",
+            "Input": "",
+            "Output": {"debatingPeriodInMinutes":1000,"majorityMargin":50,"minimumQuorum":100}
+        },
+        {
+            "Convey": "owner can change the rules",
+            "Zome": "congress",
+            "FnName": "changeVotingRules",
+            "Input": {"debatingPeriodInMinutes":1024,"majorityMargin":512,"minimumQuorum":256},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "rules should be changed",
+            "Zome": "congress",
+            "FnName": "getVotingRules",
+            "Input": "",
+            "Output": {"debatingPeriodInMinutes":1024,"majorityMargin":512,"minimumQuorum":256}
+        }
+    ]
+}

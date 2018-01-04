@@ -1,0 +1,13 @@
+{
+	"title": "completion Schema",
+	"type": "object",
+	"properties": {
+		"proposal": {
+			"type": "string"
+		},
+		"passed": {
+			"type": "boolean"
+		}
+	},
+    "required": ["proposal","passed"]
+}

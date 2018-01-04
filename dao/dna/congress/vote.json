@@ -1,0 +1,19 @@
+{
+	"title": "vote Schema",
+	"type": "object",
+	"properties": {
+		"inSupport": {
+			"type": "boolean"
+		},
+		"proposal": {
+			"type": "string"
+		},
+		"justification": {
+			"type": "string"
+		},
+		"voter": {
+			"type": "string"
+		}
+	},
+    "required": ["inSupport", "proposal","justification","voter"]
+}

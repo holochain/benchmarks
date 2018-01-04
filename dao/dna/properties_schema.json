@@ -1,0 +1,21 @@
+{
+	"title": "Properties Schema",
+	"type": "object",
+	"properties": {
+	    "description": {
+		"type": "string"
+	    },
+	    "language": {
+		"type": "string"
+	    },
+            "progenitorHash": {
+                "type":"string"
+            },
+            "progenitorIdentity": {
+                "type":"string"
+            },
+            "creditLimit": {
+                "type":"integer"
+            }
+	}
+}

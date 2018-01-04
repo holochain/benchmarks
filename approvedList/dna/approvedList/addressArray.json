@@ -1,0 +1,13 @@
+{
+  "title": "addressArray Schema",
+  "type": "object",
+  "properties": {
+    "addresses": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "addresses"
+  ],
+  "id": "http://example.com/whitelist/addressarray.json"
+}

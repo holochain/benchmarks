@@ -1,0 +1,44 @@
+{
+    "Tests": [
+        {
+            "Convey": "it creates an address array",
+            "Zome": "approvedList",
+            "FnName": "addressArrayCreate",
+            "Input": {"addresses":{
+                "xyz":2.5,
+                "abc":110.3,
+                "def":99.0
+            }},
+            "Output": "%h0%",
+            "Exposure": "public"
+        },
+        {
+            "Convey": "you can read an address array",
+            "Zome": "approvedList",
+            "FnName": "addressArrayRead",
+            "Input": "%h0%",
+            "Output": {"addresses":{
+                "xyz":2.5,
+                "abc":110.3,
+                "def":99.0
+            }},
+            "Exposure": "public"
+        },
+        {
+            "Convey": "create a 10k sized address array",
+            "Zome": "approvedList",
+            "Raw": true,
+            "Input": "var i=0;var a={};for(i=0;i<100000;i++) {a[makeHash('addressArray',i)]=i+.01};addrs={addresses:a};addressArrayCreate(addrs)",
+            "Output": "%h0%",
+            "Benchmark":true
+        },
+        {
+            "Convey": "check the large array",
+            "Zome": "approvedList",
+            "Raw": true,
+            "Input": "var addrs=addressArrayRead('%h0%');Object.keys(addrs.addresses).length",
+            "Output": 10000,
+            "Exposure": "public"
+        }
+    ]
+}

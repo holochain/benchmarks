@@ -1,0 +1,127 @@
+{
+    "Identity":"the progenitor",
+    "Tests": [
+       {
+            "Convey": "proposal exists should fail on non existent proposal",
+            "Zome": "congress",
+            "FnName": "proposalExists",
+            "Input": "QmVGtdTZdTFaLsaj2RwdVG8jcjNNcp1DE914DKZ2kHmXHa",
+            "Output": false
+        },
+        {
+            "Convey": "it should work to call new proposal",
+            "Zome": "congress",
+            "FnName": "newProposal",
+            "Input": {"description":"save the whales","funding":"","recipient":"%agent0%","amount":10000,"votingDeadline":"Sat Dec 16 2018 08:29:35 GMT-0500 (EST)"},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "proposal should have been added to proposal directory",
+            "Zome": "congress",
+            "FnName": "getProposals",
+            "Input": "",
+            "Output": [{"hash":{"%result%":1},"description":"save the whales","recipient":"%agent0%","amount":10000,"votingDeadline":"Sat Dec 16 2018 08:29:35 GMT-0500 (EST)"}]
+        },
+        {
+            "Convey": "proposal should have been added to originator",
+            "Zome": "congress",
+            "FnName": "getProposals",
+            "Input": "%key%",
+            "Output": [{"hash":{"%result%":1},"description":"save the whales","recipient":"%agent0%","amount":10000,"votingDeadline":"Sat Dec 16 2018 08:29:35 GMT-0500 (EST)"}]
+        },
+        {
+            "Convey": "it should work to vote on a proposal",
+            "Zome": "congress",
+            "FnName": "vote",
+            "Input": {"proposal":"%h1%","inSupport":true,"justification":"The whales deserve saving!"},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "vote should have been added to proposal",
+            "Zome": "congress",
+            "FnName": "getVotes",
+            "Input": {"%result%":1},
+            "Output": [{"inSupport":true,"justification":"The whales deserve saving!","proposal":{"%result%":1},"voter":"%key%"}]
+        },
+        {
+            "Convey": "vote should have been added to self",
+            "Zome": "congress",
+            "FnName": "getVotes",
+            "Input": "%key%",
+            "Output": [{"inSupport":true,"justification":"The whales deserve saving!","proposal":{"%result%":1},"voter":"%key%"}]
+
+        },
+        {
+            "Convey": "it should fail to vote on a proposal a second time",
+            "Zome": "congress",
+            "FnName": "vote",
+            "Input": {"proposal":{"%result%":1},"inSupport":false,"justification":"The whales deserve saving!"},
+            "Output": {"message":"Validation Failed","name":"HolochainError"}
+        },
+        {
+            "Convey": "it should return current voting status",
+            "Zome": "congress",
+            "FnName": "votingStatus",
+            "Input": {"%result%":1},
+            "Output": {"numberOfVotes":1,"excecuted":false,"currentResult":1}
+        },
+        {
+            "Convey": "execute proposal should fail",
+            "Zome": "congress",
+            "FnName": "executeProposal",
+            "Input": {"%result%":1},
+            "Output": {"message":"Completion Validation Failed","name":"HolochainError"}
+        },
+        {
+            "Convey": "change the rules so we can execute the proposal",
+            "Zome": "congress",
+            "FnName": "changeVotingRules",
+            "Input": {"debatingPeriodInMinutes":0,"majorityMargin":0,"minimumQuorum":1},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "fund the proposal",
+            "Zome": "congress",
+            "FnName": "fundProposal",
+            "Input": {
+                "amount": 159,
+                "proposal": {"%result%":1}
+            },
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "funding should decrease my balance",
+            "Zome": "transactions",
+            "FnName": "getBalance",
+            "Output": -159
+        },
+        {
+            "Convey": "execute proposal should succeed",
+            "Zome": "congress",
+            "FnName": "executeProposal",
+            "Input": {"%result%":1},
+            "Output": "%h2%"
+        },
+        {
+            "Convey": "executing proposal should have paid me back because I funded it",
+            "Zome": "transactions",
+            "FnName": "getBalance",
+            "Output": 0
+        },
+        {
+            "Convey": "it should return current voting status as excecuted",
+            "Zome": "congress",
+            "FnName": "votingStatus",
+            "Input": {"%result%":1},
+            "Output": {"numberOfVotes":1,"excecuted":true,"currentResult":1}
+        }
+    ],
+    "Fixtures": {
+        "Agents": [
+            {
+                "Hash": "QmVGtdTZdTFaLsaj2RwdVG8jcjNNcp1DE914DKZ2kHmXHy",
+                "Identity": "jane fiddlesticks"
+            }
+        ]
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "Version": 1,
+    "UUID": "570d654d-ad49-49b1-8c02-c2c66c30ff91",
+    "Name": "approvedList",
+    "Properties": {
+        "description": "example approved list for allowing address for an ICO",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "BasedOn": {
+        "H": null
+    },
+    "Zomes": [
+        {
+            "Name": "approvedList",
+            "Description": "",
+            "CodeFile": "approvedList.js",
+            "Entries": [
+                {
+                    "Name": "addressArray",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "addressArray.json",
+                    "Sharing": "public"
+                }
+            ],
+            "RibosomeType": "js",
+            "Functions": [
+                {
+                    "Name": "addressArrayCreate",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "addressArrayRead",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "addressArrayUpdate",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ],
+            "BridgeFuncs": null,
+            "BridgeTo": ""
+        }
+    ],
+    "RequiresVersion": 0,
+    "DHTConfig": {
+        "HashType": "sha2-256",
+        "NeighborhoodSize": 0
+    },
+    "Progenitor": {
+        "Identity": "",
+        "PubKey": null
+    }
+}

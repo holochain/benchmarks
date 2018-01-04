@@ -1,0 +1,50 @@
+{
+    "Identity":"the progenitor",
+    "Tests": [
+        {
+            "Convey": "initial owner is the progenitor",
+            "Zome": "owned",
+            "FnName": "getOwner",
+            "Output": "%agent0%"
+        },
+        {
+            "Convey": "Changing ownership should work",
+            "Zome": "owned",
+            "FnName": "transferOwnership",
+            "Input": {
+                "to": "%agent1%"
+            },
+            "Output": "%h%",
+            "Exposure": "public"
+        },
+        {
+            "Convey": "it should get the new owner",
+            "Zome": "owned",
+            "FnName": "getOwner",
+            "Output": "%agent1%"
+        },
+        {
+            "Convey": "Changing ownership after changing owner should fail",
+            "Zome": "owned",
+            "FnName": "transferOwnership",
+            "Input": {
+                "to": "%agent1%"
+            },
+            "Output": {"message":"Validation Failed","name":"HolochainError"},
+            "Exposure": "public"
+        }
+    ],
+    "Fixtures": {
+        "Agents": [
+            {
+                "Hash": "QmQXSJoGkwdF2R7Xgc5cJXhKoRRdUKPHLLtTu3VqfGdqoV",
+                "Identity": "the progenitor"
+            },
+            {
+                "Hash": "QmVGtdTZdTFaLsaj2RwdVG8jcjNNcp1DE914DKZ2kHmXHy",
+                "Identity": "non-member"
+            }
+
+        ]
+    }
+}

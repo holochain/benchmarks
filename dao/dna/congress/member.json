@@ -1,0 +1,17 @@
+{
+	"title": "member Schema",
+	"type": "object",
+	"properties": {
+		"address": {
+			"type": "string"
+		},
+		"name": {
+			"type": "string"
+		},
+		"memberSince": {
+		    "type": "string",
+                    "format": "date-time"
+		}
+	},
+    "required": ["address", "name", "memberSince"]
+}

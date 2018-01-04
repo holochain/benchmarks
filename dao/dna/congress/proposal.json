@@ -1,0 +1,20 @@
+{
+	"title": "proposal Schema",
+	"type": "object",
+	"properties": {
+		"description": {
+			"type": "string"
+		},
+		"recipient": {
+			"type": "string"
+		},
+		"amount": {
+			"type": "integer"
+		},
+		"votingDeadline": {
+		    "type": "string",
+                    "format": "date-time"
+		}
+	},
+    "required": ["description","recipient","amount","votingDeadline"]
+}

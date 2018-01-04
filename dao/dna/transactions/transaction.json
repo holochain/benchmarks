@@ -1,0 +1,26 @@
+{
+  "title": "transaction schema",
+  "type": "object",
+  "properties": {
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "preauth": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "from",
+    "to",
+    "amount"
+  ]
+}

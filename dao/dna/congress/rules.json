@@ -1,0 +1,19 @@
+{
+	"title": "rules Schema",
+	"type": "object",
+	"properties": {
+		"minimumQuorum": {
+		    "type": "integer",
+                    "minimum": 1
+		},
+		"debatingPeriodInMinutes": {
+		    "type": "integer",
+                    "minimum": 0
+		},
+		"majorityMargin": {
+		    "type": "integer",
+                    "minimum": 0
+		}
+	},
+    "required": ["minimumQuorum", "debatingPeriodInMinutes","majorityMargin"]
+}

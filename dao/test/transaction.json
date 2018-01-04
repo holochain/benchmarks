@@ -1,0 +1,149 @@
+{
+    "Identity":"the progenitor",
+    "Tests": [
+        {
+            "Convey": "We should start with a zero balance",
+            "Zome": "transactions",
+            "FnName": "getBalance",
+            "Output": 0
+        },
+        {
+            "Convey": "Create new transaction",
+            "Zome": "transactions",
+            "FnName": "transactionCreate",
+            "Input": {
+                "amount": 52,
+                "description": "Sending 52",
+                "role": "spender",
+                "who": "%agent0%"
+            },
+            "Output": "%h0%",
+            "Exposure": "public"
+        },
+        {
+            "Convey": "Read transaction",
+            "Zome": "transactions",
+            "FnName": "transactionRead",
+            "Input": {
+                "transaction": "%h0%"
+            },
+            "Output": {
+                "amount": 52,
+                "description": "Sending 52",
+                "from": "%key%",
+                "to": "%agent0%"
+            },
+            "Exposure": "public"
+        },
+        {
+            "Convey": "We should now have a non-zero balance",
+            "Zome": "transactions",
+            "FnName": "getBalance",
+            "Output": -52
+        },
+        {
+            "Convey": "A transaction greater than the credit limit should fail",
+            "Zome": "transactions",
+            "FnName": "transactionCreate",
+            "Input": {
+                "amount": 100000,
+                "description": "Sending more than my credit limit",
+                "role": "spender",
+                "who": "%agent0%"
+            },
+            "Output": {"message":"Validation Failed","name":"HolochainError"},
+            "Exposure": "public"
+        },
+        {
+            "Convey": "Create a pre-authorization for non existent proposal should fail",
+            "Zome": "transactions",
+            "FnName": "preauthCreate",
+            "Input": {
+                "amount": 100,
+                "proposal": "QmVGtdTZdTFaLsaj2RwdVG8jcjNNcp1DE914DKZ2kHmXHz"
+            },
+            "Output": {"message":"Validation Failed","name":"HolochainError"},
+            "Exposure": "public"
+        },
+        {
+            "Convey": "create proposal for test",
+            "Zome": "congress",
+            "FnName": "newProposal",
+            "Input": {"description":"save the whales","recipient":"%agent0%","amount":10000,"votingDeadline":"Sat Dec 16 2018 08:29:35 GMT-0500 (EST)"},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "Create a pre-authorization for proposal",
+            "Zome": "transactions",
+            "FnName": "preauthCreate",
+            "Input": {
+                "amount": 100,
+                "proposal": {"%result%":6}
+            },
+            "Output": "%h0%",
+            "Exposure": "public"
+        },
+        {
+            "Convey": "Preauth should decrease the balance",
+            "Zome": "transactions",
+            "FnName": "getBalance",
+            "Output": -152
+        },
+        {
+            "Convey": "Cancel Preauth on unknown preauth should fail",
+            "Zome": "transactions",
+            "FnName": "preauthCancel",
+            "Input": "QmVGtdTZdTFaLsaj2RwdVG8jcjNNcp1DE914DKZ2kHmXHa",
+            "Output": {"message":"hash not found","name":"HolochainError"}
+        },
+        {
+            "Convey": "Cancel Preauth on uncomplete proposal should fail",
+            "Zome": "transactions",
+            "FnName": "preauthCancel",
+            "Input": {"%result%":7},
+            "Output": {"message":"Validation Failed","name":"HolochainError"}
+        },
+        {
+            "Convey": "vote against the proposal",
+            "Zome": "congress",
+            "FnName": "vote",
+            "Input": {"proposal":{"%result%":6},"inSupport":false,"justification":"The whales deserve saving!"},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "change the rules so we can execute the proposal",
+            "Zome": "congress",
+            "FnName": "changeVotingRules",
+            "Input": {"debatingPeriodInMinutes":0,"majorityMargin":0,"minimumQuorum":1},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "execute proposal should succeed",
+            "Zome": "congress",
+            "FnName": "executeProposal",
+            "Input": {"%result%":6},
+            "Output": "%h1%"
+        },
+        {
+            "Convey": "Cancel Preauth on failed proposal should succeed",
+            "Zome": "transactions",
+            "FnName": "preauthCancel",
+            "Input": {"%result%":7},
+            "Output": "%h0%"
+        },
+        {
+            "Convey": "and balance should be restored",
+            "Zome": "transactions",
+            "FnName": "getBalance",
+            "Output": -52
+        }
+    ],
+    "Fixtures": {
+        "Agents": [
+            {
+                "Hash": "QmVGtdTZdTFaLsaj2RwdVG8jcjNNcp1DE914DKZ2kHmXHw",
+                "Identity": "some agent"
+            }
+        ]
+    }
+}
