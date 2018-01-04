@@ -15,6 +15,8 @@ Because the architectures of Blockchain/Ethereum are so different we acknowledge
 
 ### On-chain storage costs
 ### Cost differences between CPU/Storage/Bandwith/Memory
+### Resilience Factor
+### Gossip
 
 ## Methodology
 
@@ -30,4 +32,22 @@ Because the architectures of Blockchain/Ethereum are so different we acknowledge
 ## Benchmark Scenarios
 
 ### ICO Whitelist
+At common use-case for Ethereum is an ICO.  Current banking regulations require that organization know about their customers before accepting funds from them.  In the world of pseudo-anonymous crypto-currency this regulation can honored by creating a white-list process where customers verify their identity and provide a wallet from which they will be sending funds.  This wallet is then stored on the blockchain in a white-list, and tested by the a smart-contract in allowing the minting of coins in the ICO.
+
+For our own ICO we have used this exact procedure, so this a real-world example, and in this scenario we use our whitelist contract exactly as deployed for our own ICO.
+
+#### Comparison Caveats
+- block size limitations
+
+#### Results
+TBD
+
 ### DAO
+One of the most exciting applications of the distributed computing is Distributed Autonomous Organizations.  The Ethereum website provides a sample DAO smart contract.  We have ported that smart contract as a  Holochain application.
+
+#### Comparison Caveats
+- proposal size
+- mutual credit currency instead of ETH transaction fabric
+
+#### Results
+TBD
