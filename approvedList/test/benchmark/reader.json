@@ -1,0 +1,13 @@
+{
+    "Tests": [
+        {
+            "Time":4500,
+            "Convey": "check the large array",
+            "Zome": "approvedList",
+            "Raw": true,
+            "Input": "var hash=getArray();var addrs=addressArrayRead(hash);Object.keys(addrs.addresses).length",
+            "Output": 10000,
+            "Exposure": "public"
+        }
+    ]
+}

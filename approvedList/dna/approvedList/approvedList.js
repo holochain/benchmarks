@@ -22,6 +22,8 @@ function validateNewEntry(entryName, entry, header, pkg, sources) {
     case "addressArray":
         // validation code here
         return true;
+    case "array_links":
+        return true;
     default:
         // invalid entry name!!
         return false;
@@ -101,10 +103,10 @@ function validateDel (entryName, hash, pkg, sources) {
  * @return {boolean} is valid?
  */
 function validateLink (linkEntryType, baseHash, links, pkg, sources) {
-  switch (entryName) {
-    case "addressArray":
+    switch (linkEntryType) {
+    case "array_links":
       // validation code here
-      return false;
+      return true;
     default:
       // invalid entry name!!
       return false;
@@ -149,7 +151,11 @@ function validateDelPkg (entryName) {
  * @return {string} the hash of the new entry
  */
 function addressArrayCreate (mapping) {
-    return commit("addressArray",mapping);
+    var hash = commit("addressArray",mapping);
+    if (!isErr(hash)) {
+        commit("array_links",{Links:[{Base:App.DNA.Hash,Link:hash,Tag:"array"}]});
+    }
+    return hash;
 }
 
 
@@ -161,4 +167,24 @@ function addressArrayCreate (mapping) {
 function addressArrayRead (hash) {
     var json = get(hash);
     return JSON.parse(json);
+}
+
+/**
+ * Called to get the hash of the first created array
+ * @return {array} the hash
+ */
+function getArray() {
+    var lks = getLinks(App.DNA.Hash,"array");
+    if (isErr(lks)) {
+        return "";
+    }
+
+    return lks[0].Hash;
+}
+
+// utilities
+
+
+function isErr(result) {
+    return ((typeof result === 'object') && result.name == "HolochainError");
 }

@@ -1,0 +1,5 @@
+{
+    "GossipInterval": 300,
+    "Duration": 5,
+    "Clone": [{ "Role":"reader", "Number":10 }]
+}

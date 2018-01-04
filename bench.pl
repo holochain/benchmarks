@@ -1,3 +1,17 @@
+=begin comment
+This is a script to sum up benchmark stats reported by different agents via
+example usage:
+$ cd approvedList
+$ hcdev -mdns=true -no-nat-upnp scenario -benchmarks benchmark | perl ../bench.pl
+Total chain: 556.23
+    Total DHT: 6340.86
+    Total Bytes Sent: 6306.16
+    Total CPU: 3700
+
+=end comment
+=cut
+
+
 $| = 1;
 my $chain = 0.0;
 my $dht = 0.0;

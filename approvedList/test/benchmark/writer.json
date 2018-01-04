@@ -1,0 +1,11 @@
+{
+    "Tests": [
+        {
+            "Convey": "create a 10k sized address array",
+            "Zome": "approvedList",
+            "Raw": true,
+            "Input": "var i=0;var a={};for(i=0;i<10000;i++) {a[makeHash('addressArray',i)]=i+.01};addrs={addresses:a};addressArrayCreate(addrs)",
+            "Output": "%h1%"
+        }
+    ]
+}

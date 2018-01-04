@@ -48,7 +48,7 @@ contract('Congress', (accounts) => {
                 inc(x.receipt);
             }
 
-            let proposalSizeKBytes = 1;
+            let proposalSizeKBytes = 0;
             let proposalTxt = "";
             for(let i=1;i<=1024*proposalSizeKBytes;i++) {
                 proposalTxt += "0";

@@ -22,7 +22,12 @@
                     "Schema": "",
                     "SchemaFile": "addressArray.json",
                     "Sharing": "public"
+                },
+                {
+                    "Name": "array_links",
+                    "DataFormat": "links"
                 }
+
             ],
             "RibosomeType": "js",
             "Functions": [
@@ -38,6 +43,11 @@
                 },
                 {
                     "Name": "addressArrayUpdate",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getArray",
                     "CallingType": "json",
                     "Exposure": "public"
                 }
