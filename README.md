@@ -1,13 +1,38 @@
-# benchmarks
+# Holo Value Benchmarks
 
-This repo contains a set of benchmarks that measure the cost in gas for set of Ethereum smart contracts, and the cpu/bandwith/storage usage of Holochain applications that accomplish the same tasks.
+### Summary:
+This repo contains benchmarks for comparing the *price* of computation in Ethereum vs. Holochain. For each benchmark we have some functionality coded as an Ethereum smart contract and parallel functionality coded as an app that accomplishes the same task on Holochain, an alternative distributed computing framework.
 
-The purpose of these comparisons is to establish an initial "holochain compute unit (HCU)" that consists of a specific amount of CPU, bandwidth and storage usage, that we can use to establish the initial value of 1 HOLO, the mutual credit currency that will be used by hosters on the Holo platform to charge for hosting.  At launch time, we will provide 1 such unit of computing for 1 HOLO.  We expect others to undercut our price.
+In the case of Ethereum, we can easily identify how much gas it takes to accomplish the tasks and then look to [Ethereum gas station](#) for data about the average gas price you would pay and how long it would take to run.
+
+In the case of a Holochain app, we use our scenario testing framework to run many simultaneous nodes emulating the interactions of a decentralized network of peers running it (since there's not a real network of people running benchmarks). We can measure how much work each node has to do as measured in milliseconds of CPU usage, bandwidth, storage as well as the gossip activity between nodes for synchronization.
+
+### Context:
+Once Holo launches and nodes are providing hosting services, they will set their own prices so the market will determine how much hosting power the Holo currency buys. However, in advance of that time, we need to set a starting point for the pre-sale of the currency.
+
+We see the market for hosting resilient applications as a spectrum spread across a few dimensions.
+ - **Centralization:**
+  - *Single server* hosting is completely centralized (and not very resilient).
+  - *Cloud hosting* on is less centralized and more resilient, in that the cloud provider may be spreading parts of your load across different servers and possibly different data centers, but is still typically centralized to a single live data source, and proprietary gossip and coordination inside their private network.
+  - *Ethereum smart contracts* run on a network of approximately 26,000 mining nodes all updating the shared state of a global blockchain ledger.
+  - *Holochain* apps are fully distributed / peer to peer and comprise an ecosystem of networks validating a sharded DHT.
+ - **Performance:**
+ - **Price:**
+
+
+### Purpose:
+We have to set some arbitrary initial price for the sale of Holo fuel for our ICO. Holo fuel will be used to buy hosting services from Holo hosts. Those hosts charge for the computing power they provide by billing for CPU, bandwidth, and storage they provide.
+
+We have to set a price that provides ample value so people will want to participate in the ICO, We also need
+
+---
+Context:
+The purpose of these comparisons is to establish an initial reference point for "holochain compute unit (HCU)." An HCU represents th ability to perform some computing for a holochain application to accomplish specific amount of computing work CPU, bandwidth and storage usage, that we can use to establish the initial value of 1 HOLO, the mutual credit currency that will be used by hosts on the Holo platform to charge for hosting.  At launch time, we will provide 1 such unit of computing for 1 HOLO.  We expect others to undercut our price.
 
 Because the architectures of Blockchain/Ethereum are so different we acknowledge right here at the top, and these comparisons are not apples-to-apples.
 
 ## Pricing Mechanics and Evolution
-### hosters set their own prices
+### hosts set their own prices
 ### displaying average prices
 ### charging per application by it's usage profile
 
