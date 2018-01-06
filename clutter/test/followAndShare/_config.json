@@ -1,0 +1,5 @@
+{
+    "GossipInterval":300,
+    "Duration":10,
+    "Clone": [{ "Role":"joe", "Number":10 }]
+}

@@ -20,16 +20,19 @@ We see the market for hosting resilient applications as a spectrum spread across
  - **Price:**
 
 
-### Purpose:
-We have to set some arbitrary initial price for the sale of Holo fuel for our ICO. Holo fuel will be used to buy hosting services from Holo hosts. Those hosts charge for the computing power they provide by billing for CPU, bandwidth, and storage they provide.
+### Benchmarking Purpose:
+We have to set an initial price for the sale of Holo fuel for our ICO. Holo fuel will be used to buy hosting services from Holo hosts. Those hosters charge for the computing power they provide by billing for CPU, bandwidth, and storage they provide.  In some senses, the price we charge for Holo fuel can be arbitrary because hosters can set their own prices (in Holo fuel) for the computing they provide, however, to jump start the network, Holo will also be providing hosting at a particular pre-declared price.  We have to set a price that:
+1. which provides ample value so people will want to participate in the ICO
+2. we can guarantee to deliver at
+3. we believe hosters can undercut and thus provide an expanding ecosystem of hosting
 
-We have to set a price that provides ample value so people will want to participate in the ICO, We also need
+Because Ethereum provides distributing computing at a cost that people are actually paying now, it seems reasonable to believe that if we can undercut that price by a wide margin (10K) that's ample incentive for people to participate in the ICO.  These benchmarks indicate to us that we can indeed deliver hosting at that 10K margin from Ethereum, and that others will be able to do better.
 
 ---
 Context:
 The purpose of these comparisons is to establish an initial reference point for "holochain compute unit (HCU)." An HCU represents th ability to perform some computing for a holochain application to accomplish specific amount of computing work CPU, bandwidth and storage usage, that we can use to establish the initial value of 1 HOLO, the mutual credit currency that will be used by hosts on the Holo platform to charge for hosting.  At launch time, we will provide 1 such unit of computing for 1 HOLO.  We expect others to undercut our price.
 
-Because the architectures of Blockchain/Ethereum are so different we acknowledge right here at the top, and these comparisons are not apples-to-apples.
+Because the architectures of Blockchain/Ethereum are so different we acknowledge right here at the top, and these comparisons are not apples-to-apples, however they do provide sufficient data to set our initial pricing.
 
 ## Pricing Mechanics and Evolution
 ### hosts set their own prices
@@ -75,7 +78,7 @@ For our own ICO we have used this exact procedure, so this a real-world example,
 - ETH block size limitations
 - Resilience choice (i.e. nodes gossiping)
 
-#### Results
+#### Result
 - _Ethereum:_ In this scenario we make three transactions with the contract of 1, 2 and 3 addresses to add to the white-list, and use the difference in gas used to find the per-address write cost, and then extrapolate to find the cost for 10000 addresses.  Finally we run tests just to show that maximum number of addresses that fit in a block given gas/block limitations is 315
 
 ``` shell
@@ -142,7 +145,7 @@ $ truffle test
 Total Gas Used:6157696
       ✓ should run the benchmarks (6568ms)
 ```
-_
+
 - _Holochain:_  In this scenario the test runs for a total of 20 seconds real time.
 
 For prosposals with 1k in the proposal text:
@@ -163,4 +166,23 @@ Total chain: 45.22
 Total DHT: 1400.47
 Total Bytes Sent: 21075.87
 Total CPU: 48030
+```
+
+### Social Media Twitter Clone
+
+In this scenario we examine the actual costs in gas incurred by users of the Ethereum social media Twitter clone [leeroy](https://leeroy.io), and we measure the compute resources used by our own Twitter clone [Clutter](https://github.com/Holochain/clutter).
+
+#### Results
+
+- _Ethereum:_ The  [leeroy](https://leeroy.io) twitter clone is fully operational and people are joining it and making posts which have significant real-world costs.  We don't have the solidity code available for direct inspection and creating an identical scenario in truffle, as we did above.  However zippy joined the network and made a post.  Here is the [transaction hash](https://etherscan.io/tx/0x4ee9b970dabcbb469bfacae71354e7d161b8a9c8787b725d9ded3232c897b110) of the registerUsername call when zippy became a user.  This call used 70726 gas with "Actual Tx Cost/Fee" at 26gwei of 0.001838876 Ether ($1.85) on the day it was made.  And here is is the [transaction hash](https://etherscan.io/tx/0x0803f139fb73f5a0cfbfdf102d29ffd9464bb05ee752de41a676db531ca1889d) for zippy's first post.  It used 25721 gas "Actual Tx Cost/Fee" at 3 Gwei of 0.00077163 Ether ($0.78).
+
+- _Holochain:_ In this scenario one user, Jane, joins the network and makes a post.  Ten other users join the network, follow Jane, and retrieve her post:
+
+``` shell
+$ hcdev -mdns=true -no-nat-upnp scenario -benchmarks followAndShare | perl ../bench.pl
+Total chain: 17.32
+Total DHT: 673.87
+Total Bytes Sent: 2985.15
+Total CPU: 12650
+
 ```
