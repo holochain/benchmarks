@@ -109,10 +109,12 @@ Here's the output of running the test:
 
 $ cd approvedList
 $ hcdev -mdns=true -no-nat-upnp scenario -benchmarks benchmark | perl ../bench.pl
-Total chain: 556.23
-Total DHT: 6340.86
-Total Bytes Sent: 6306.16
-Total CPU: 3700
+...
+Total chain: 556.23K
+Total DHT: 6342.62K
+Total Bytes Sent: 6208.01K
+Total Gossip Sent: 125.53K
+Total CPU: 6620ms
 
 ```
 
@@ -152,20 +154,25 @@ For prosposals with 1k in the proposal text:
 ``` shell
 $ cd dao
 $ hcdev -mdns=true -no-nat-upnp scenario -benchmarks benchmark | perl ../bench.pl
-Total chain: 49.9
-Total DHT: 1428.49
-Total Bytes Sent: 20676.51
-Total CPU: 43990
+...
+Total chain: 49.14K
+Total DHT: 1322.79K
+Total Bytes Sent: 18886.79K
+Total Gossip Sent: 11820.55K
+Total CPU: 52180ms
 ```
 
 For prosposals with 10bytes in the proposal text:
 ``` shell
 $ cd dao
 $ hcdev -mdns=true -no-nat-upnp scenario -benchmarks benchmark | perl ../bench.pl
-Total chain: 45.22
-Total DHT: 1400.47
-Total Bytes Sent: 21075.87
-Total CPU: 48030
+...
+Total chain: 45.22K
+Total DHT: 1293.75K
+Total Bytes Sent: 5740.94K
+Total Gossip Sent: 646.28K
+Total CPU: 24490ms
+
 ```
 
 ### Social Media Twitter Clone
@@ -180,10 +187,13 @@ In this scenario we examine the actual costs in gas incurred by users of the Eth
 
 ``` shell
 $ hcdev -mdns=true -no-nat-upnp scenario -benchmarks followAndShare | perl ../bench.pl
-Total chain: 17.32
-Total DHT: 673.87
-Total Bytes Sent: 2985.15
-Total CPU: 12650
+...
+Total chain: 17.32K
+Total DHT: 672.77K
+Total Bytes Sent: 2673.31K
+Total Gossip Sent: 325.37K
+Total CPU: 11810ms
+
 
 ```
 
@@ -232,6 +242,7 @@ Gas [200 elements]: 1788194
 ``` shell
 cd sortArray
 hcdev -mdns=true -no-nat-upnp scenario benchmark -benchmarks | perl ../bench.pl
+...
 Total chain: 1.83K
 Total DHT: 244.02K
 Total Bytes Sent: 813.75K
