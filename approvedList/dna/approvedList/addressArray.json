@@ -8,6 +8,5 @@
   },
   "required": [
     "addresses"
-  ],
-  "id": "http://example.com/whitelist/addressarray.json"
+  ]
 }

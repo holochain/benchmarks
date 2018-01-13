@@ -1,0 +1,5 @@
+{
+  "title": "sortArray Schema",
+  "type": "array",
+  "id": "http://example.com/whitelist/addressarray.json"
+}

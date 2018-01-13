@@ -1,0 +1,13 @@
+{
+    "Tests": [
+        {
+            "Time":4500,
+            "Convey": "check the sorted array",
+            "Zome": "sortArray",
+            "Raw": true,
+            "Input": "var hash=getArray();var array=sortArrayRead(hash);var x = function(array){var val = array[0];for (var i=1;i<array.length;i++) {if (val > array[i]) return false;val = array[i];} return true }; x(array)",
+            "Output": true,
+            "Exposure": "public"
+        }
+    ]
+}

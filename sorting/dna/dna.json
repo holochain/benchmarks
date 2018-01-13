@@ -1,0 +1,65 @@
+{
+    "Version": 1,
+    "UUID": "570d654d-ad49-49b1-8c02-c2c66c30ff91",
+    "Name": "sortArray",
+    "Properties": {
+        "description": "somewhat contrived example of a list sorting application",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+
+    "Zomes": [
+        {
+            "Name": "sortArray",
+            "Description": "",
+            "CodeFile": "sortArray.js",
+            "Entries": [
+                {
+                    "Name": "sortArray",
+                    "DataFormat": "json",
+                    "SchemaFile": "sortArray.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "array_links",
+                    "DataFormat": "links"
+                }
+
+            ],
+            "RibosomeType": "js",
+            "Functions": [
+                {
+                    "Name": "sortArrayCreate",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "sortArrayRead",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "sortArray",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getArray",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ],
+            "BridgeFuncs": null,
+            "BridgeTo": ""
+        }
+    ],
+    "RequiresVersion": 0,
+    "DHTConfig": {
+        "HashType": "sha2-256",
+        "NeighborhoodSize": 0
+    },
+    "Progenitor": {
+        "Identity": "",
+        "PubKey": null
+    }
+}

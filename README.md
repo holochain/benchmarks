@@ -186,3 +186,55 @@ Total Bytes Sent: 2985.15
 Total CPU: 12650
 
 ```
+
+### Sorting
+
+Sorting data is a very common computational task. In this scenario we examine a few cases of list sorting and show the gas costs of sorting lists, with similar computation in Holochain.
+
+#### Result
+- _Ethereum:_ In [this repo](https://github.com/alice-si/array-booster) Jakub Wojciechowski has created a test suite for two different sorting algorithms which reports gas costs.  We have added a test to also show the maximum size of an array to be sorted before the gas cost is greater than the maximum gas cost per block, making it effectively impossible to compute.
+
+``` shell
+$ cd sorting/ethsort
+$ truffle develop
+test
+
+...
+
+  Contract: Soriting algorithms
+    Insertion Sort algorithm:
+Gas [10 elements]: 94406
+      ✓ should sort 10 elements with insertion Sort (245ms)
+Gas [25 elements]: 224466
+      ✓ should sort 25 elements with insertion Sort (668ms)
+Gas [50 elements]: 543642
+      ✓ should sort 50 elements with insertion Sort (1569ms)
+Gas [100 elements]: 1389870
+      ✓ should sort 100 elements with insertion Sort (4082ms)
+Gas [200 elements]: 4211830
+      ✓ should sort 200 elements with insertion Sort (13348ms)
+    Quick Sort algorithm:
+Gas [10 elements]: 95192
+      ✓ should sort 10 elements with Quick Sort (4417ms)
+Gas [25 elements]: 224142
+      ✓ should sort 25 elements with insertion Sort (557ms)
+Gas [50 elements]: 440070
+      ✓ should sort 50 elements with insertion Sort (1268ms)
+Gas [100 elements]: 843663
+      ✓ should sort 100 elements with insertion Sort (2264ms)
+Gas [200 elements]: 1788194
+      ✓ should sort 200 elements with insertion Sort (5020ms)
+
+```
+
+- _Holochain:_ For this scenario we create a holochain app which provides a function that takes a list and then creates an entry of that list sorted, which gets puts to the DHT and then read back by 10 other nodes.   This is not quite the same scenario as above because it includes reading, but that's reasonable because reading, though less expensive in the Holocain world than write, doesn't come without some cost.
+
+``` shell
+cd sortArray
+hcdev -mdns=true -no-nat-upnp scenario benchmark -benchmarks | perl ../bench.pl
+Total chain: 1.83K
+Total DHT: 244.02K
+Total Bytes Sent: 813.75K
+Total CPU: 4920ms
+
+```

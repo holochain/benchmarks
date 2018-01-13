@@ -1,0 +1,28 @@
+{
+    "Tests": [
+        {
+            "Convey": "it creates a sorted array",
+            "Zome": "sortArray",
+            "FnName": "sortArrayCreate",
+            "Input": [2,7,4,3,9,10,6,1,8,5],
+            "Output": "%h1%",
+            "Exposure": "public"
+        },
+        {
+            "Convey": "you can read the sorted array",
+            "Zome": "sortArray",
+            "FnName": "sortArrayRead",
+            "Input": "%h1%",
+            "Output": [1,2,3,4,5,6,7,8,9,10],
+            "Exposure": "public"
+        },
+        {
+            "Convey": "you can get the sorted array from a link",
+            "Zome": "sortArray",
+            "FnName": "getArray",
+            "Input": "",
+            "Output": "%h1%",
+            "Exposure": "public"
+        }
+    ]
+}

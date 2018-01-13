@@ -26,7 +26,7 @@ foreach $line ( <STDIN> ) {
     $cpu += $1 if $line =~ /CPU: ([0-9.]+)ms/;
 }
 
-print "Total chain: $chain\n";
-print "Total DHT: $dht\n";
-print "Total Bytes Sent: $net\n";
-print "Total CPU: $cpu\n";
+print "Total chain: ${chain}K\n";
+print "Total DHT: ${dht}K\n";
+print "Total Bytes Sent: ${net}K\n";
+print "Total CPU: ${cpu}ms\n";

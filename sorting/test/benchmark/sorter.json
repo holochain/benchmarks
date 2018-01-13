@@ -1,0 +1,11 @@
+{
+    "Tests": [
+        {
+            "Convey": "create a sorted list",
+            "Zome": "sortArray",
+            "Raw": true,
+            "Input": "var i=0;var a=[];for(i=0;i<250;i++) {a.push( Math.floor(Math.random()*10000))};sortArrayCreate(a)",
+            "Output": "%h1%"
+        }
+    ]
+}
