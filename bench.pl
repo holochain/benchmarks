@@ -19,7 +19,7 @@ my $net = 0.0;
 my $gossip = 0.0;
 my $cpu = 0.0;
 foreach $line ( <STDIN> ) {
-    print $line;
+#    print $line;
     chomp( $line );
 
     $chain += $1 if $line =~ /Chain growth: ([0-9.]+)K/;

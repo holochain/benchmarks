@@ -37,7 +37,7 @@ contract('Soriting algorithms', function() {
         let deployedSorter = await sorter.deployed();
         Client.link("Sorter", deployedSorter.address);
         let client = await Client.new();
-        console.log(data)
+       // console.log(data)
         await sortData(client, data);
         await checkSort(client, data);
     };
@@ -88,18 +88,18 @@ contract('Soriting algorithms', function() {
         });
 
     });
+/*
 
-    /*
-     describe('Quick Sort algorithm2:', async function () {
+    describe('Quick Sort algorithm2:', async function () {
 
-     it("should sort 100 elements with Quick Sort", async function () {
-     await testScenario(QuickSorter, genArray(331));
-     });
-     contractShouldThrow("on 332 items", async () => {
-     await testScenario(QuickSorter, genArray(332));
-     });
-     });
-     */
+        it("should sort 331 elements with Quick Sort", async function () {
+            await testScenario(QuickSorter, genArray(331));
+        });
+        contractShouldThrow("on 332 items", async () => {
+            await testScenario(QuickSorter, genArray(332));
+        });
+    });
+*/
 
 });
 

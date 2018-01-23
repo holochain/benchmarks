@@ -41,20 +41,23 @@ Because the architectures of Blockchain/Ethereum are so different we acknowledge
 
 ## Issues that make comparison tricky
 
-### On-chain storage
-- very expensive in ETH costs, leads to non-decentralized solutions (hashes and off chain storage)
+### Gas price fluctuation
+Over the time in which we built out these benchmarks we have seen standard [gas prices](https://ethgasstation.info/index.php) fluctuate between 4-90 Gwei.  For the purposes of choosing our standard compute unit, we averaged the gas prices for the all the days of Jan 2018 before the launch of our ICO.
 
-### Read
-- free for Ethereum (no gas cost)
-- not free in Holo
+### Read vs. Write
+For both Ethereum and Holo, there is difference in real world costs for read vs. write.  In the case of  Ethereum all of the cost paid by participants has been shifted to write, i.e. to changing state, and all read transactions are free.  For Holo both read & write transactions will carry a cost, though read transactions will be significantly cheaper because they don't trigger as much activity on the network.
 
 ### Cost differences between CPU/Storage/Bandwith/Memory
+
 - location dependent
 - application dependent
 - hardware dependent
 
 ### Resilience Factor
+Different applications will set different resilience factors, and thereby consume substantially more or less computing resources.
+
 ### Gossip
+Our gossip algorithms are incomplete.
 
 ## Methodology
 
@@ -108,13 +111,13 @@ Here's the output of running the test:
 ``` shell
 
 $ cd approvedList
-$ hcdev -mdns=true -no-nat-upnp scenario -benchmarks benchmark | perl ../bench.pl
+$ perl ../benchmark.pl
 ...
 Total chain: 556.23K
-Total DHT: 6342.62K
-Total Bytes Sent: 6208.01K
-Total Gossip Sent: 125.53K
-Total CPU: 6620ms
+Total DHT: 6342.196K
+Total Bytes Sent: 6214.686K
+Total Gossip Sent: 122.416K
+Total CPU: 6082ms
 
 ```
 
@@ -129,6 +132,15 @@ In this scenario for both the Ethereum and Holochain contexts we assume the same
 
 #### Results
 
+For proposals with 0 bytes in the proposal text:
+``` shell
+$ truffle test
+...
+
+Total Gas Used:6157696
+      ✓ should run the benchmarks (6568ms)
+```
+
 - _Ethereum:_
 For prosposals with 1k in the proposal text:
 ``` shell
@@ -139,41 +151,35 @@ Total Gas Used:9109388
       ✓ should run the benchmarks (6568ms)
 ```
 
-For proposals with 0 bytes in the proposal text:
-``` shell
-$ truffle test
-...
-
-Total Gas Used:6157696
-      ✓ should run the benchmarks (6568ms)
-```
-
 - _Holochain:_  In this scenario the test runs for a total of 20 seconds real time.
-
-For prosposals with 1k in the proposal text:
-``` shell
-$ cd dao
-$ hcdev -mdns=true -no-nat-upnp scenario -benchmarks benchmark | perl ../bench.pl
-...
-Total chain: 49.14K
-Total DHT: 1322.79K
-Total Bytes Sent: 18886.79K
-Total Gossip Sent: 11820.55K
-Total CPU: 52180ms
-```
 
 For prosposals with 10bytes in the proposal text:
 ``` shell
 $ cd dao
-$ hcdev -mdns=true -no-nat-upnp scenario -benchmarks benchmark | perl ../bench.pl
+$ perl ../benchmark.pl
+
 ...
 Total chain: 45.22K
-Total DHT: 1293.75K
-Total Bytes Sent: 5740.94K
-Total Gossip Sent: 646.28K
-Total CPU: 24490ms
-
+Total DHT: 1316.313K
+Total Bytes Sent: 15843.621K
+Total Gossip Sent: 9274.803K
+Total CPU: 48721ms
 ```
+
+For prosposals with 1k in the proposal text:
+``` shell
+$ cd dao
+$ perl ../benchmark.pl
+
+...
+Total chain: 49.54K
+Total DHT: 1363.782K
+Total Bytes Sent: 16685.8K
+Total Gossip Sent: 9928.417K
+Total CPU: 50874ms
+```
+
+As you see, for Holo although there is an increase in cost, as the data size increase, it isn't nearly as significant as it is for Ethereum.
 
 ### Social Media Twitter Clone
 
@@ -186,15 +192,14 @@ In this scenario we examine the actual costs in gas incurred by users of the Eth
 - _Holochain:_ In this scenario one user, Jane, joins the network and makes a post.  Ten other users join the network, follow Jane, and retrieve her post:
 
 ``` shell
-$ hcdev -mdns=true -no-nat-upnp scenario -benchmarks followAndShare | perl ../bench.pl
+$ cd clutter
+$ perl ../benchmark.pl
 ...
 Total chain: 17.32K
-Total DHT: 672.77K
-Total Bytes Sent: 2673.31K
-Total Gossip Sent: 325.37K
-Total CPU: 11810ms
-
-
+Total DHT: 701.389K
+Total Bytes Sent: 6349.02K
+Total Gossip Sent: 3379.842K
+Total CPU: 19510ms
 ```
 
 ### Sorting
@@ -239,13 +244,27 @@ Gas [200 elements]: 1788194
 
 - _Holochain:_ For this scenario we create a holochain app which provides a function that takes a list and then creates an entry of that list sorted, which gets puts to the DHT and then read back by 10 other nodes.   This is not quite the same scenario as above because it includes reading, but that's reasonable because reading, though less expensive in the Holocain world than write, doesn't come without some cost.
 
+Here are the results from a run with the list size to sort set to 200 to match the Ethereum scenarios above.
+
 ``` shell
-cd sortArray
-hcdev -mdns=true -no-nat-upnp scenario benchmark -benchmarks | perl ../bench.pl
+$ cd sorting
+$ ../perl benchmark.pl
 ...
-Total chain: 1.83K
-Total DHT: 244.02K
-Total Bytes Sent: 813.75K
-Total CPU: 4920ms
+Total chain: 1.6K
+Total DHT: 241.42K
+Total Bytes Sent: 655.94K
+Total Gossip Sent: 121.89K
+Total CPU: 4840ms
+
+```
+
+Here are the results from a run with the list size to sort set to 20000, which simply cannot be done in the case of Ethereum because it costs more gas than the max block gas limit.
+
+``` shell
+Total chain: 96.145K
+Total DHT: 1777.201K
+Total Bytes Sent: 2182.001K
+Total Gossip Sent: 132.369K
+Total CPU: 9679ms
 
 ```
