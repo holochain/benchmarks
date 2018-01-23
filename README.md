@@ -28,38 +28,34 @@ We have to set an initial price for the sale of Holo fuel for our ICO. Holo fuel
 
 Because Ethereum provides distributing computing at a cost that people are actually paying now, it seems reasonable to believe that if we can undercut that price by a wide margin (10K) that's ample incentive for people to participate in the ICO.  These benchmarks indicate to us that we can indeed deliver hosting at that 10K margin from Ethereum, and that others will be able to do better.
 
----
-Context:
-The purpose of these comparisons is to establish an initial reference point for "holochain compute unit (HCU)." An HCU represents th ability to perform some computing for a holochain application to accomplish specific amount of computing work CPU, bandwidth and storage usage, that we can use to establish the initial value of 1 HOLO, the mutual credit currency that will be used by hosts on the Holo platform to charge for hosting.  At launch time, we will provide 1 such unit of computing for 1 HOLO.  We expect others to undercut our price.
+Thus, we arbitrarily declare that we will set the price of 10,000 Holo fuel at 1 Euro, and that for that 1 Euro's worth of Holo fuel, you will get as much computing as 10,000 Euros would buy you on Ethereum as demonstrated by the benchmarking tests below.  These tests will demonstrate how much CPU, storage and bandwidth Holochain uses to accomplish those task, and from that data we set exactly how much computing you get for 1 Holo fuel (or HOT as its proxy in the ICO).
 
-Because the architectures of Blockchain/Ethereum are so different we acknowledge right here at the top, and these comparisons are not apples-to-apples, however they do provide sufficient data to set our initial pricing.
+## Issues that make comparison tricky
+
+Because the architectures of Blockchain/Ethereum are so different we acknowledge right here at the top, and these comparisons are not apples-to-apples, however they do provide sufficient data to set the initial amount of computing you get for 1 Holo fuel unit.  Here are some of the challenges in making the comparison:
+
+### Gas price fluctuation
+Over the time in which we built out these benchmarks we have seen standard [gas prices](https://ethgasstation.info/index.php) fluctuate between 4-90 Gwei.  For the purposes of choosing our standard compute unit, we averaged the gas prices for the all the days of Jan 2018 before the launch of our ICO.
+
+### Read vs. Write
+For both Ethereum and Holo, there is a difference in real world costs for read vs. write.  In the case of  Ethereum all of the cost paid by participants has been shifted to write, i.e. to changing state, and all read transactions are free.  This is despite the fact that there are real costs in the world for read operations on the Etherum, it's just that the community treats them as overhead.
+
+For Holo both read & write transactions will carry a cost, though read transactions will be significantly cheaper because they don't trigger as much activity on the network.  For Holochain there are also 'uncharged' costs that the community will have to bear as overhead. The mostly relate to the gossip that nodes need to perform to maintain the sharding replication for resilience.
+
+### Cost differences between CPU/Storage/Bandwith/Memory
+We recognize that different hosters have different costs associated with the different aspects of providing computing, and that therefore they will want to set pricing differentially according to the different profiles of the applications.  From our benchmarks below you can see that some applications storage heavy, others are bandwidth heavy, and others are CPU intensive.  For the purposes of this benchmark we simply lump all of this together to find a starting compute value, that we expect will be very easy for hosters to undercut.
+
+### Gossip & Resillience
+A significant porition of the computing overhead in Holochain is attributable to gossip which establishes and maintains the sharded copies of all the application data.  Factoring in this cost into the Holo fuel pricing is very difficult ahead of real-world use cases.  In our benchmarking we have recorded how much of the bandwidth use was due to gossip and simply lumped it into the total.  When Holo launches these overhead costs may be separated out to be accounted for using other methods for more precise value accounting.
 
 ## Pricing Mechanics and Evolution
 ### hosts set their own prices
 ### displaying average prices
 ### charging per application by it's usage profile
 
-## Issues that make comparison tricky
 
-### Gas price fluctuation
-Over the time in which we built out these benchmarks we have seen standard [gas prices](https://ethgasstation.info/index.php) fluctuate between 4-90 Gwei.  For the purposes of choosing our standard compute unit, we averaged the gas prices for the all the days of Jan 2018 before the launch of our ICO.
 
-### Read vs. Write
-For both Ethereum and Holo, there is difference in real world costs for read vs. write.  In the case of  Ethereum all of the cost paid by participants has been shifted to write, i.e. to changing state, and all read transactions are free.  For Holo both read & write transactions will carry a cost, though read transactions will be significantly cheaper because they don't trigger as much activity on the network.
-
-### Cost differences between CPU/Storage/Bandwith/Memory
-
-- location dependent
-- application dependent
-- hardware dependent
-
-### Resilience Factor
-Different applications will set different resilience factors, and thereby consume substantially more or less computing resources.
-
-### Gossip
-Our gossip algorithms are incomplete.
-
-## Methodology
+## Comparison Methodology
 
 1) _Scenarios_:  We have created scenarios of usage of the Smart Contract/Holochain Application, for example for the DAO application the scenario consists of an owner setting up a fixed number of members of the DAO, the members then create and voting on proposal and finalize them.
 
