@@ -3,7 +3,7 @@
 ### Summary:
 This repo contains benchmarks for comparing the *price* of computation in Ethereum vs. Holochain. For each benchmark we have some functionality coded as an Ethereum smart contract and parallel functionality coded as an app that accomplishes the same task on Holochain, an alternative distributed computing framework.
 
-In the case of Ethereum, we can easily identify how much gas it takes to accomplish the tasks and then look to [Ethereum gas station](#) for data about the average gas price you would pay and how long it would take to run.
+In the case of Ethereum, we can easily identify how much gas it takes to accomplish the tasks and then look to [Etherscan](#) for data about the average daily gas price for all the days in January, and to [Ethereum Gas Station](#) you would pay and how long it would take to run.
 
 In the case of a Holochain app, we use our scenario testing framework to run many simultaneous nodes emulating the interactions of a decentralized network of peers running it (since there's not a real network of people running benchmarks). We can measure how much work each node has to do as measured in milliseconds of CPU usage, bandwidth, storage as well as the gossip activity between nodes for synchronization.
 
@@ -264,3 +264,15 @@ Total Gossip Sent: 132.369K
 Total CPU: 9679ms
 
 ```
+
+## Conclusions
+Summary
+pricing
+
+value
+
+We are promising to be able to compute for 1/10,000 the cost on Ethereum, but realistically this should be an easy target. And we expect autonomous market pricing to end up closer to 1/100k or even 1/1m the cost of Ethereum, with Holo hosts still able to make good money at those rates.
+
+### TL;DR;
+- 1 Euro buys you 10,000 Holo Tokens.
+- 1 Holo Token buys you 1 Euro's worth of Ethereum computing on Holo.
