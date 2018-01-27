@@ -3,28 +3,41 @@
 ### Summary:
 This repo contains benchmarks for comparing the *price* of computation in Ethereum vs. Holochain. For each benchmark we have some functionality coded as an Ethereum smart contract and parallel functionality coded as an app that accomplishes the same task on Holochain, an alternative distributed computing framework.
 
-In the case of Ethereum, we can easily identify how much gas it takes to accomplish the tasks and then look to [Etherscan](#) for data about the average daily gas price for all the days in January, and to [Ethereum Gas Station](#) you would pay and how long it would take to run.
+In the case of Ethereum, we can easily identify how much gas it takes to accomplish the tasks and then look to [Etherscan](https://etherscan.io/chart/gasprice) for data about the average daily gas price for all the days in January, and to [Ethereum Gas Station](https://ethgasstation.info/) for how long it would take to run.
 
 In the case of a Holochain app, we use our scenario testing framework to run many simultaneous nodes emulating the interactions of a decentralized network of peers running it (since there's not a real network of people running benchmarks). We can measure how much work each node has to do as measured in milliseconds of CPU usage, bandwidth, storage as well as the gossip activity between nodes for synchronization.
 
 ### Context:
-Once Holo launches and nodes are providing hosting services, they will set their own prices so the market will determine how much hosting power the Holo currency buys. However, in advance of that time, we need to set a starting point for the pre-sale of the currency.
+Once Holo launches and nodes are providing hosting services, they set their own prices, so the market will determine how much hosting power the Holo currency buys. However, in advance of that time, we need to set a starting point for the pre-sale of the currency.
 
 We see the market for hosting resilient applications as a spectrum spread across a few dimensions.
- - **Centralization:**
-  - *Single server* hosting is completely centralized (and not very resilient).
+
+**Centralization:**
+  - *Single server* hosting is completely centralized (and not particularly resilient).
   - *Cloud hosting* is less centralized and more resilient, in that the cloud provider may be spreading parts of your load across different servers and possibly different data centers, but is still typically centralized to a single live data source, and proprietary gossip and coordination inside their private network.
   - *Ethereum smart contracts* run on a network of approximately 26,000 mining nodes all updating the shared state of a global blockchain ledger.
-  - *Holochain* apps are fully distributed / peer to peer and comprise an ecosystem of networks validating a sharded DHT.
- - **Performance:**
- - **Price:**
+  - *Holochain* apps are fully distributed / peer to peer and comprise an ecosystem of networks validating a sharded DHT. If you have 330 million users of an Twitter-like app, they each run a copy and the data is sharded across them all with a set redundancy factor.
 
+**Performance:**
+  - *Blockchain / Ethereum dApps* have thousands of nodes that need to maintain the same state, and perform the same processing. This is the **least efficient form of distributed computing** forcing every node to do the redundant work of all the other nodes, and limiting throughput to the slowest computer of the lot. Not only is there large communications overhead to pass all messages between all the nodes and have every node validate the work done in each block, but to compound this inefficiency, blockchains that use proof-of-work add massive additional computational overhead to randomize which node will be the authority to commit any block of state changes.
+  - *Single Sever / Cloud hosting*
+  - *CDN / Load Balanced / Replicated hosting*
+  - *Holo / Virtual Distributed Hosting*
+  - *Holochain / Fully Peered Hosting*
+
+**Price:**
+  - *Ethereum* is so ridiculously expensive that it should hardly be considered a computing platform any more. It's like having a car that is too expensive to ever drive. $83 dollars to sort a list of 200 items. $10,000 to store a whitelist of 10k addresses for your ICO - yup that's $1 per address. You should probably just stick to HODLing your ETH, because you can't afford spend it on computing.
+  - *Other Blockchains / Sidechains*
+  - *Holo.host*
+  - *Cloud hosting*
+  - *That spare computer in your basement* may seem like a cheap option, but it will be slow an unreliable at best.
+  - *Holochain / fully P2P* 
 
 ### Benchmarking Purpose:
-We have to set an initial price for the sale of Holo fuel for our ICO. Holo fuel will be used to buy hosting services from Holo hosts. Those hosters charge for the computing power they provide by billing for CPU, bandwidth, and storage they provide.  In some senses, the price we charge for Holo fuel can be arbitrary because hosters can set their own prices (in Holo fuel) for the computing they provide, however, to jump start the network, Holo will also be providing hosting at a particular pre-declared price.  We have to set a price that:
+We have to set an initial price for the sale of Holo fuel for our ICO. Holo fuel will be used to buy hosting services from Holo hosts. Those hosts charge for the computing power they provide by billing for CPU, bandwidth, and storage they provide.  In some senses, the price we charge for Holo fuel can be arbitrary because hosts can set their own prices (in Holo fuel) for the computing they provide, however, to jump start the network, Holo will also be providing hosting at a particular pre-declared price.  We have to set a price that:
 1. which provides ample value so people will want to participate in the ICO
 2. we can guarantee to deliver at
-3. we believe hosters can undercut and thus provide an expanding ecosystem of hosting
+3. we believe hosts can undercut and thus provide an expanding ecosystem of hosting
 
 Because Ethereum provides distributed computing at a cost that people are actually paying now, it seems reasonable to believe that if we can undercut that price by a wide margin (10K) that's ample incentive for people to participate in the ICO.  These benchmarks indicate to us that we can indeed deliver hosting at that 10K margin from Ethereum, and that others will be able to do better.
 
@@ -38,15 +51,15 @@ Because the architectures of Blockchain/Ethereum are so different we acknowledge
 Over the time in which we built out these benchmarks we have seen standard [gas prices](https://ethgasstation.info/index.php) fluctuate between 4-90 Gwei.  For the purposes of choosing our standard compute unit, we averaged the gas prices for the all the days of Jan 2018 before the launch of our ICO.
 
 ### Read vs. Write
-For both Ethereum and Holo, there is a difference in real world costs for read vs. write.  In the case of  Ethereum all of the cost paid by participants has been shifted to write, i.e. to changing state, and all read transactions are free.  This is despite the fact that there are real costs in the world for read operations on the Etherum, it's just that the community treats them as overhead.
+For both Ethereum and Holo, there is a difference in real world costs for read vs. write.  In the case of  Ethereum all of the cost paid by participants has been shifted to write, i.e. to changing state, and all read transactions are free.  This is despite the fact that there are real costs in the world for read operations on the Ethereum, it's just that the community treats them as overhead.
 
 For Holo both read & write transactions will carry a cost, though read transactions will be significantly cheaper because they don't trigger as much activity on the network.  For Holochain there are also 'uncharged' costs that the community will have to bear as overhead. The mostly relate to the gossip that nodes need to perform to maintain the sharding replication for resilience.
 
-### Cost differences between CPU/Storage/Bandwith/Memory
-We recognize that different hosters have different costs associated with the different aspects of providing computing, and that therefore they will want to set pricing differentially according to the different profiles of the applications.  From our benchmarks below you can see that some applications are storage heavy, others are bandwidth heavy, and others are CPU intensive.  For the purposes of this benchmark we simply lump all of this together to find a starting compute value, that we expect will be very easy for hosters to undercut.
+### Cost differences between CPU/Storage/Bandwidth/Memory
+We recognize that different hosts have different costs associated with the different aspects of providing computing, and that therefore they will want to set pricing differentially according to the different profiles of the applications.  From our benchmarks below you can see that some applications are storage heavy, others are bandwidth heavy, and others are CPU intensive.  For the purposes of this benchmark we simply lump all of this together to find a starting compute value, that we expect will be very easy for hosts to undercut.
 
-### Gossip & Resillience
-A significant porition of the computing overhead in Holochain is attributable to gossip which establishes and maintains the sharded copies of all the application data.  Factoring in this cost into the Holo fuel pricing is very difficult ahead of real-world use cases.  In our benchmarking we have recorded how much of the bandwidth use was due to gossip and simply lumped it into the total.  When Holo launches these overhead costs may be separated out to be accounted for using other methods for more precise value accounting.
+### Gossip & Resilience
+A significant portion of the computing overhead in Holochain is attributable to gossip which establishes and maintains the sharded copies of all the application data.  Factoring in this cost into the Holo fuel pricing is very difficult ahead of real-world use cases.  In our benchmarking we have recorded how much of the bandwidth use was due to gossip and simply lumped it into the total.  When Holo launches these overhead costs may be separated out to be accounted for using other methods for more precise value accounting.
 
 ## Pricing Mechanics and Evolution
 ### hosts set their own prices
@@ -62,14 +75,14 @@ A significant porition of the computing overhead in Holochain is attributable to
 2) Measuring costs of gas for ETH Smart Contracts:  We use the truffle test environment and sum up the costs of gas of all the transactions involved in the scenarios.  We report these values as the cost.
 
 3) Measuring computing usage of Holochain Applications:  We have added in benchmarking code directly into Holochain core that is activated by the scenario system of our Test Driven Development framework.  This code measures:
- - storage by the number of bytes used in agents' source chains and stored in their DHT databases
- - bandwith by counting the number of bytes sent by all agents.
- - cpu usage as measured by the https://github.com/shirou/gopsutil library on a quad-core Thinkpad P51s laptop running ubuntu 16.04
+ - Storage by the number of bytes used in agents' source chains and stored in their DHT databases
+ - Bandwidth by counting the number of bytes sent by all agents.
+ - CPU usage as measured by the https://github.com/shirou/gopsutil library on a quad-core Thinkpad P51s laptop running Ubuntu 16.04
 
 ## Benchmark Scenarios
 
 ### ICO Whitelist
-A common use-case for Ethereum is an ICO.  Current banking regulations require that organizations know about their customers before accepting funds from them.  In the world of pseudo-anonymous crypto-currency this regulation can be honored by creating a white-list process where customers verify their identity and provide a wallet from which they will be sending funds.  This wallet is then stored on the blockchain in a white-list, and tested by the a smart-contract in allowing the minting of coins in the ICO.
+A common use-case for Ethereum is an ICO.  Current banking regulations require that organizations know about their customers before accepting funds from them.  In the world of pseudo-anonymous cryptocurrency this regulation can be honored by creating a white-list process where customers verify their identity and provide a wallet from which they will be sending funds.  This wallet is then stored on the blockchain in a white-list, and tested by the a smart-contract in allowing the minting of coins in the ICO.
 
 For our own ICO we have used this exact procedure, so this a real-world example, and in this scenario we use our whitelist contract exactly as deployed for our own ICO.  In this scenario we measure the costs of adding 10000 addresses to a whitelist.
 
@@ -100,7 +113,7 @@ Gas Used:6716481
 
 ```
 
-- _Holochain:_ In this scenario a writer node creating an array of 10K entries and 10 reader nodes that wait 5 seconds for gossip propigation and then read the list.
+- _Holochain:_ In this scenario a writer node creating an array of 10K entries and 10 reader nodes that wait 5 seconds for gossip propagation and then read the list.
 
 Here's the output of running the test:
 
@@ -138,7 +151,7 @@ Total Gas Used:6157696
 ```
 
 - _Ethereum:_
-For prosposals with 1k in the proposal text:
+For proposals with 1k in the proposal text:
 ``` shell
 $ truffle test
 ...
@@ -149,7 +162,7 @@ Total Gas Used:9109388
 
 - _Holochain:_  In this scenario the test runs for a total of 20 seconds real time.
 
-For prosposals with 10bytes in the proposal text:
+For proposals with 10 bytes in the proposal text:
 ``` shell
 $ cd dao
 $ perl ../benchmark.pl
@@ -162,7 +175,7 @@ Total Gossip Sent: 9274.803K
 Total CPU: 48721ms
 ```
 
-For prosposals with 1k in the proposal text:
+For proposals with 1k in the proposal text:
 ``` shell
 $ cd dao
 $ perl ../benchmark.pl
@@ -212,7 +225,7 @@ test
 
 ...
 
-  Contract: Soriting algorithms
+  Contract: Sorting algorithms
     Insertion Sort algorithm:
 Gas [10 elements]: 94406
       ✓ should sort 10 elements with insertion Sort (245ms)
@@ -238,7 +251,7 @@ Gas [200 elements]: 1788194
 
 ```
 
-- _Holochain:_ For this scenario we create a holochain app which provides a function that takes a list and then creates an entry of that list sorted, which gets put to the DHT and then read back by 10 other nodes.   This is not quite the same scenario as above because it includes reading, but that's reasonable because reading, though less expensive in the Holocain world than write, doesn't come without some cost.
+- _Holochain:_ For this scenario we create a Holochain app which provides a function that takes a list and then creates an entry of that list sorted, which gets put to the DHT and then read back by 10 other nodes.   This is not quite the same scenario as above because it includes reading, but that's reasonable because reading, though less expensive in the Holochain world than write, doesn't come without some cost.
 
 Here are the results from a run with the list size to sort set to 200 to match the Ethereum scenarios above.
 
@@ -266,7 +279,7 @@ Total CPU: 9679ms
 ```
 
 ## Conclusions
-Summary
+
 pricing
 
 value
