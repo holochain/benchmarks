@@ -8,40 +8,40 @@ In the case of Ethereum, we can easily identify how much gas it takes to accompl
 In the case of a Holochain app, we use our scenario testing framework to run many simultaneous nodes emulating the interactions of a decentralized network of peers running it (since there's not a real network of people running benchmarks). We can measure how much work each node has to do as measured in milliseconds of CPU usage, bandwidth, storage as well as the gossip activity between nodes for synchronization.
 
 ### Context:
-Once Holo launches and nodes are providing hosting services, they set their own prices, so the market will determine how much hosting power the Holo currency buys. However, in advance of that time, we need to set a starting point for the pre-sale of the currency.
+Once Holo launches and nodes are providing hosting services, they set their own prices, so the market will determine how much hosting power a unit of Holo fuel buys. However, in advance of that time for the Initial Community Offering of the currency, we need to set some kind of starting point for the pre-sale of the currency. And we can guarantee that at least we will offer hosting at that price. Even at 1/10,000 the price of running the computation on Ethereum, the price is high enough that anyone would happily offer hosting on Holochain at that price.
 
 We see the market for hosting resilient applications as a spectrum spread across a few dimensions.
 
-**Centralization:**
+#### **Centralization:**
   - *Single server* hosting is completely centralized (and not particularly resilient).
   - *Cloud hosting* is less centralized and more resilient, in that the cloud provider may be spreading parts of your load across different servers and possibly different data centers, but is still typically centralized to a single live data source, and proprietary gossip and coordination inside their private network.
   - *Ethereum smart contracts* run on a network of approximately 26,000 mining nodes all updating the shared state of a global blockchain ledger.
   - *Holochain* apps are fully distributed / peer to peer and comprise an ecosystem of networks validating a sharded DHT. If you have 330 million users of an Twitter-like app, they each run a copy and the data is sharded across them all with a set redundancy factor.
 
-**Performance:**
-  - *Blockchain / Ethereum dApps* have thousands of nodes that need to maintain the same state, and perform the same processing. This is the **least efficient form of distributed computing** forcing every node to do the redundant work of all the other nodes, and limiting throughput to the slowest computer of the lot. Not only is there large communications overhead to pass all messages between all the nodes and have every node validate the work done in each block, but to compound this inefficiency, blockchains that use proof-of-work add massive additional computational overhead to randomize which node will be the authority to commit any block of state changes.
-  - *Single Sever / Cloud hosting*
-  - *CDN / Load Balanced / Replicated hosting*
-  - *Holo / Virtual Distributed Hosting*
-  - *Holochain / Fully Peered Hosting*
+#### **Architectural Efficiency:**
+  - **Blockchain / Ethereum dApps** have thousands of nodes that need to maintain the same state, and every node must perform the same processing. This is the ***least efficient form of distributed computing*** forcing every node to do the redundant work of all the other nodes, and limiting throughput to the slowest computer of the lot. Not only is there large communications overhead to pass all messages between all the nodes and have every node validate the work done in each block, but to compound this inefficiency, blockchains that use proof-of-work add massive additional computational overhead to randomize which node will be the authority to commit the next block of state changes.
+  - **Single Sever / Cloud hosting** require every person who wants to interact with an application to compete for the computing power of one single server which is the bottleneck for all computation, interactions, and data updates. For low traffic, or static content, this isn't so bad, but large volumes of dynamic or interactive content quickly overload the capacities of a single server.
+  - **CDN / Load Balanced / Replicated hosting** address the bottleneck of centralized hosting by pushing static content out to various places on the network so the requests don't even need to converge to the single server and get get cached and served by a content delivery network. For the dynamic content that can't be statically cached, various strategies are employed to increase the computing power available to service the traffic. This is sometimes done through load balancing, clustering, or even having a replicated database across multiple clusters of servers spread around the Internet. At this point there are pretty reliable tools for this behavior, but management of large scale dynamic operations like Facebook or Google require an army of devops staff to set up and maintain this complex infrastructure.
+  - **Holo / Virtual Distributed Hosting** leverages the self-scaling architecture of Holochain (see next section) by providing a hybrid peering/hosting framework. To make holochain applications accessible via a web browser to people who are not running holochain, Holo hosts extend virtual holochain services to people not running holochain. This provides similar clustering/replicating functions as described above, but with the simpler to run and maintain peer-to-peer geometry of Holochain applications with sharded DHTs.
+  - **Holochain / Fully Peered Hosting** provides a fully peer-to-peer scalable computing framework where each user performs their own computing on their own device and publishes any changes to an asynchronous validating DHT (distributed hash table) which functions as a shared ledger. This architecture eliminates all processing bottlenecks and can even be implemented with DHT caching to eliminate hot spots, and provide CDN-like performance optimization. This approach has the added benefit of each person always being able to keep a local copy of all the data they've created.
 
-**Price:**
-  - *Ethereum* is so ridiculously expensive that it should hardly be considered a computing platform any more. It's like having a car that is too expensive to ever drive. $83 dollars to sort a list of 200 items. $10,000 to store a whitelist of 10k addresses for your ICO - yup that's $1 per address. You should probably just stick to HODLing your ETH, because you can't afford spend it on computing.
-  - *Other Blockchains / Sidechains*
-  - *Holo.host*
-  - *Cloud hosting*
-  - *That spare computer in your basement* may seem like a cheap option, but it will be slow an unreliable at best.
-  - *Holochain / fully P2P* 
+#### **Price:**
+  - **Ethereum** is so ridiculously expensive that it should hardly be considered a computing platform. It's like having a car that is too expensive to ever drive: \$83 dollars to sort a list of 200 items, \$10,000 to store a whitelist of 10k addresses for an ICO ($1 per address). It's probably best to stick to "HODLing" your ETH, because it's a waste to try to do any computing with it. Running code and storing data on this "global computer" currently costs 100,000,000x to 1,000,000,000x the cost of doing the same computing on Amazon Web Services (Yes, that is up to 1 billion times more expensive.).
+  - **Sidechains** attempt to provide a cheaper, smaller, private, but connected framework for computing or storage which can return results to the main Ethereum chain. Basically, this forces the complexity of computing integration across chains to developers because of the fundamental unscalability of the blockchain architecture. It creates more points of failure, and typically involves developing across multiple languages, platforms, and testing frameworks. It's kind of an invitation for a big tangled mess. What could go wrong?
+  - **Holo.host** provides a bridge from the large scale P2P holochain architecture, to people not running holochain, who just want to access dApps as if they are a centralized web site. For our ICO we are starting the pricing for this at 1/10,000 the cost of Ethereum, but our benchmarks indicate that this is quite comfortably conservative and we can expect to see hosts drop their prices much lower to attract income, probably even another 10,000 times cheaper still. This starts to put Holo hosting in a similar price range to be able to compete with cloud hosting.
+  - **Cloud hosting** has been the sweet spot in the price/performance spectrum for a while by having a big company use their army of devops people do the clustering and load balancing for you. This is a pretty appealing option to small companies who want the option to increase their scale when needed, but don't have their own technical staff to build a scalable architecture. But remember, as described in the Architectural Efficiency section above, this is basically about putting a band-aid on a centralized architecture. It can scale beyond a single computer to clusters and cached static content, but if you need to scale across data centers or across the world, this happens at a much higher price point involving custom scaling solutions.
+  - **That spare computer in your basement** will probably be slow and unreliable for serving up information and if it fails (as old computers eventually do) you're likely to suffer data loss (unless you're way better about backups than most people). This is certainly a cheap option and basically one of the cases where you get what you pay for.
+  - **Holochain** uses computing power of various devices and knits it into reliable and resilient peer-to-peer fabric with cryptographically-assured data integrity. It is efficient enough to operate without needing to pay any mining or hosting fees. Each device carries its own part of the load, plus a small multiplier for ensuring shared resilience and redundancy for the application data.
 
 ### Benchmarking Purpose:
 We have to set an initial price for the sale of Holo fuel for our ICO. Holo fuel will be used to buy hosting services from Holo hosts. Those hosts charge for the computing power they provide by billing for CPU, bandwidth, and storage they provide.  In some senses, the price we charge for Holo fuel can be arbitrary because hosts can set their own prices (in Holo fuel) for the computing they provide, however, to jump start the network, Holo will also be providing hosting at a particular pre-declared price.  We have to set a price that:
-1. which provides ample value so people will want to participate in the ICO
-2. we can guarantee to deliver at
-3. we believe hosts can undercut and thus provide an expanding ecosystem of hosting
+1. Provides ample value compared to other blockchain dApps so people will want to participate in the ICO,
+2. Can guarantee hosting services at that price because it is high enough for pretty much anyone to be happy to charge at that rate,
+3. Will be undercut quickly by hosts competing for traffic and thus provide an early rise in value of the currency which should stabilize at the hosting becomes commodified.
 
-Because Ethereum provides distributed computing at a cost that people are actually paying now, it seems reasonable to believe that if we can undercut that price by a wide margin (10K) that's ample incentive for people to participate in the ICO.  These benchmarks indicate to us that we can indeed deliver hosting at that 10K margin from Ethereum, and that others will be able to do better.
+Because Ethereum provides distributed computing at a cost that people are actually paying now, it seems reasonable to believe that if we can undercut that price by a wide margin (10,000 time cheaper) that's ample incentive for people to participate in an ICO.  These benchmarks indicate show that margin to be ample as a starting price, while giving room for rapid price improvement which increases the value of the currency early in its life.
 
-**Thus, we arbitrarily declare that we will set the price of 10,000 Holo fuel at 1 Euro, and that for that 1 Euro's worth of Holo fuel, you will get as much computing as 10,000 Euros would buy you on Ethereum as demonstrated by the benchmarking tests below.**  These tests will demonstrate how much CPU, storage and bandwidth Holochain uses to accomplish those task, and from that data we set exactly how much computing you get for 1 Holo fuel (or HOT as its proxy in the ICO).
+**Thus, we somewhat arbitrarily declare that we will set the price of 10,000 Holo fuel at 1 Euro, and that for that 1 Euro's worth of Holo fuel, you will get as much computing as 10,000 Euros would buy you on Ethereum as demonstrated by the benchmarking tests below.**  These tests will demonstrate how much CPU, storage and bandwidth Holochain uses to accomplish those tasks, and from that data we set a baseline for how much computing you get for 1 Holo fuel (or 1 HOT as its proxy in the ICO).
 
 ## Issues that make comparison tricky
 
@@ -280,12 +280,9 @@ Total CPU: 9679ms
 
 ## Conclusions
 
-pricing
-
-value
-
-We are promising to be able to compute for 1/10,000 the cost on Ethereum, but realistically this should be an easy target. And we expect autonomous market pricing to end up closer to 1/100k or even 1/1m the cost of Ethereum, with Holo hosts still able to make good money at those rates.
+We are promising that Holo apps will be able to compute for 1/10,000 the cost of doing so on Ethereum. The benchmarks show this to be an easy target such that expect independent market pricing to end up closer to 1/100k or even 1/1m the cost of Ethereum. Holo hosts will still make a good return on their hardware investment even at those rates.
 
 ### TL;DR;
 - 1 Euro buys you 10,000 Holo Tokens.
 - 1 Holo Token buys you 1 Euro's worth of Ethereum computing on Holo.
+- This price is high enough for hosts to charge less which should create early value increase in the currency and then stable value once a price equilibrium is reached.
