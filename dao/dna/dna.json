@@ -22,6 +22,7 @@
         {
             "Name": "owned",
             "Description": "port of owned contract",
+            "Config":{"returnErrors":true},
             "CodeFile": "owned.js",
             "Entries": [
                 {
@@ -46,6 +47,7 @@
         {
             "Name": "congress",
             "Description": "port of congress contract",
+            "Config":{"returnErrors":true},
             "CodeFile": "congress.js",
             "RibosomeType": "js",
             "Entries": [
@@ -185,6 +187,7 @@
         {
             "Name": "transactions",
             "Description": "Execution and validation of mutual credit transactions",
+            "Config":{"returnErrors":true},
             "CodeFile": "transactions.js",
             "Entries": [
                 {

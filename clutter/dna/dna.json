@@ -14,6 +14,7 @@
         {
             "Name": "clutter",
             "Description": "zome that implements micro-blogging",
+            "Config":{"returnErrors":true},
             "CodeFile": "clutter.js",
             "Entries": [
                 {

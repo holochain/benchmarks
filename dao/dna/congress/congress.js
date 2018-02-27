@@ -145,7 +145,7 @@ function validateFundingLinks(links,sources) {
     var preauth = get(preauthHash,{GetMask:HC.GetMask.All});
     if (isErr(preauth)) return false;
     if (preauth.EntryType != "preauth") return false;
-    var entry = JSON.parse(preauth.Entry);
+    var entry = preauth.Entry;
     if (entry.payload.proposal!=proposalHash) return false;
     return true;
 

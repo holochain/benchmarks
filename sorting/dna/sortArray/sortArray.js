@@ -174,9 +174,7 @@ function sortArrayCreate (array) {
  * @return {array} the array
  */
 function sortArrayRead (hash) {
-    var json = get(hash);
-    var entry = JSON.parse(json);
-    return entry;
+    return get(hash);
 }
 
 /**

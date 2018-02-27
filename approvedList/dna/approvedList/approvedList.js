@@ -165,8 +165,7 @@ function addressArrayCreate (mapping) {
  * @return {array} the mapping
  */
 function addressArrayRead (hash) {
-    var json = get(hash);
-    return JSON.parse(json);
+    return get(hash);
 }
 
 /**
@@ -178,13 +177,5 @@ function getArray() {
     if (isErr(lks)) {
         return "";
     }
-
     return lks[0].Hash;
-}
-
-// utilities
-
-
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
 }

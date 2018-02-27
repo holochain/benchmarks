@@ -29,10 +29,7 @@ function getCompletion(proposalHash) {
 }
 
 function getPreauth(preauthHash) {
-    var preauth = get(preauthHash);
-    if (isErr(preauth)) return preauth;
-    preauth = JSON.parse(preauth);
-    return preauth;
+    return get(preauthHash);
 }
 
 function validatePreauth(entry,balanceFunc,params) {
@@ -315,7 +312,6 @@ function transactionRead(params) {
             debug(e);
         }
     }
-
     return transaction;
 }
 
@@ -344,7 +340,6 @@ function preauthCreate(params) {
 function preauthCancel(hash) {
     var preauth = get(hash,{Local:true});
     if (isErr(preauth)) return preauth;
-    preauth = JSON.parse(preauth);
     var entry = {
         amount: -preauth.amount,
         payload: {preauth:hash}
