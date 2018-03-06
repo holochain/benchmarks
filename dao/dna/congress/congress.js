@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Called only when your source chain is generated
  * @return {boolean} success
@@ -56,7 +54,7 @@ function validate(entryName, entry, header, pkg, sources) {
         // you can only vote once
         var links = getLinks(entry.proposal,"vote",{Load:true});
         if (isErr(links)) {
-            links = [];
+            return false;
         }
 
         for(var i=0;i<links.length;i++) {
@@ -107,7 +105,10 @@ function validateVoteLinks(links,sources) {
 
 function completionExists(proposalHash) {
     var lks = getLinks(proposalHash,"completion");
-    if (!isErr(lks)) {
+    if (isErr(lks)) {
+        return false;
+    }
+    if (lks.length > 0) {
         return true;
     }
     return false;
@@ -309,7 +310,7 @@ function proposalExists(hash) {
 function isMember(address) {
     var links = getLinks(getDirectoryBase(),"member",{Load:true});
     if (isErr(links)) {
-        links = [];
+        return null;
     }
     for(var i=0;i<links.length;i++) {
         if (links[i].Entry.address == address) {
@@ -457,7 +458,7 @@ function changeVotingRules(param){
         var base = getRulesBase();
         var links = [{Base:base,Link:rulesHash,Tag:"rules"}];
         var current_rules = getLinks(base,"rules");
-        if (!isErr(current_rules)) {
+        if (!isErr(current_rules) && current_rules.length>0) {
             links.push({Base:base,Link:current_rules[0].Hash,Tag:"rules",LinkAction:HC.LinkAction.Del});
         }
         var linkHash = commit("rules_links",{Links:links});
@@ -546,12 +547,9 @@ function getMe() {
     return App.Key.Hash;
 }
 
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
-}
-
 function getOwner() {
-    var owner = JSON.parse(call("owned","getOwner",{}));
+    var json = call("owned","getOwner",{});
+    var owner = JSON.parse(json);
     return owner;
 }
 
@@ -562,7 +560,7 @@ function getInitialRules() {
 function getLinksEntries(baseHash,tag,addHash) {
     var links = getLinks(baseHash,tag,{Load:true});
     if (isErr(links)) {
-        links = [];
+        return links;
     }
     var entries = [];
     for (var i=0;i<links.length;i++) {

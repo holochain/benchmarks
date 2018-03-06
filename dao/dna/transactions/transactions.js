@@ -24,7 +24,7 @@ function isWithinMyCreditLimit(entry) {
 
 function getCompletion(proposalHash) {
     var links = getLinks(proposalHash,"completion",{Load:true});
-    if (isErr(links)) return undefined;
+    if (isErr(links) || links.length == 0) return undefined;
     return links[0].Entry;
 }
 

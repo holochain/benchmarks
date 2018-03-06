@@ -2,7 +2,7 @@
     "Version": 1,
     "UUID": "1b4400ce-df71-11e7-8f0e-54ee75d2f20c",
     "Name": "holodao",
-    "RequiresVersion": 19,
+    "RequiresVersion": 20,
     "DHTConfig": {
         "HashType": "sha2-256"
     },
@@ -22,7 +22,7 @@
         {
             "Name": "owned",
             "Description": "port of owned contract",
-            "Config":{"returnErrors":true},
+            "Config":{"ErrorHandling":"returnErrorValue"},
             "CodeFile": "owned.js",
             "Entries": [
                 {
@@ -47,7 +47,7 @@
         {
             "Name": "congress",
             "Description": "port of congress contract",
-            "Config":{"returnErrors":true},
+            "Config":{"ErrorHandling":"returnErrorValue"},
             "CodeFile": "congress.js",
             "RibosomeType": "js",
             "Entries": [
@@ -187,7 +187,7 @@
         {
             "Name": "transactions",
             "Description": "Execution and validation of mutual credit transactions",
-            "Config":{"returnErrors":true},
+            "Config":{"ErrorHandling":"returnErrorValue"},
             "CodeFile": "transactions.js",
             "Entries": [
                 {

@@ -14,7 +14,7 @@
         {
             "Name": "approvedList",
             "Description": "",
-            "Config":{"returnErrors":true},
+            "Config":{"ErrorHandling":"returnErrorValue"},
             "CodeFile": "approvedList.js",
             "Entries": [
                 {
@@ -57,7 +57,7 @@
             "BridgeTo": ""
         }
     ],
-    "RequiresVersion": 0,
+    "RequiresVersion": 20,
     "DHTConfig": {
         "HashType": "sha2-256",
         "NeighborhoodSize": 0

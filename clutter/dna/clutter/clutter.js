@@ -182,17 +182,12 @@ function addHandle(handle) {
     return key;
 }
 
-// helper function to determine if value returned from holochain function is an error
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
-}
-
 // helper function to do getLinks call, handle the no-link error case, and copy the returned entry values into a nicer array
 function doGetLinkLoad(base, tag) {
     // get the tag from the base in the DHT
     var links = getLinks(base, tag,{Load:true});
     if (isErr(links)) {
-        links = [];
+        return links;
     } else {
         links = links;
     }
@@ -211,7 +206,7 @@ function doGetLink(base,tag) {
     // get the tag from the base in the DHT
     var links = getLinks(base, tag,{Load:false});
     if (isErr(links)) {
-        links = [];
+        return links;
     }
      else {
         links = links;

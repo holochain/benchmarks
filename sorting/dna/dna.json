@@ -12,6 +12,7 @@
         {
             "Name": "sortArray",
             "Description": "",
+            "Config":{"ErrorHandling":"returnErrorValue"},
             "CodeFile": "sortArray.js",
             "Entries": [
                 {
@@ -53,7 +54,7 @@
             "BridgeTo": ""
         }
     ],
-    "RequiresVersion": 0,
+    "RequiresVersion": 20,
     "DHTConfig": {
         "HashType": "sha2-256",
         "NeighborhoodSize": 0

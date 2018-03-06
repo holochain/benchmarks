@@ -14,7 +14,7 @@
         {
             "Name": "clutter",
             "Description": "zome that implements micro-blogging",
-            "Config":{"returnErrors":true},
+            "Config":{"ErrorHandling":"returnErrorValue"},
             "CodeFile": "clutter.js",
             "Entries": [
                 {
@@ -146,7 +146,7 @@
             "BridgeTo": ""
         }
     ],
-    "RequiresVersion": 18,
+    "RequiresVersion": 20,
     "DHTConfig": {
         "HashType": "sha2-256",
         "NeighborhoodSize": 0

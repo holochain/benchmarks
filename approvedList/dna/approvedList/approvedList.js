@@ -174,7 +174,7 @@ function addressArrayRead (hash) {
  */
 function getArray() {
     var lks = getLinks(App.DNA.Hash,"array");
-    if (isErr(lks)) {
+    if (isErr(lks) || lks.length == 0) {
         return "";
     }
     return lks[0].Hash;
