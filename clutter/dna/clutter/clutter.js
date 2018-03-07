@@ -60,7 +60,7 @@ function postMod(params) {
 
 function getPost(params) {
   var post, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
-  if (isErr(rawPost)) {
+  if (isErr(rawPost) || rawPost === HC.HashNotFound) {
     return rawPost;
   } else {
     post = {

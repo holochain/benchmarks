@@ -2,7 +2,7 @@
     "Version": 1,
     "UUID": "1b4400ce-df71-11e7-8f0e-54ee75d2f20c",
     "Name": "holodao",
-    "RequiresVersion": 20,
+    "RequiresVersion": 21,
     "DHTConfig": {
         "HashType": "sha2-256"
     },

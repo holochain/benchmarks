@@ -113,7 +113,7 @@
             "Input":  {
               "postHash": "%h1%"
             },
-            "Output": {"message":"hash not found","name":"HolochainError"},
+            "Output": null,
             "Exposure":"public",
             "Err": "",
             "Regexp": ""

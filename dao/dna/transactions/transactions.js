@@ -37,7 +37,7 @@ function validatePreauth(entry,balanceFunc,params) {
     // if this is a preauth cancel it will have the preauth in the payload
     if (entry.payload.hasOwnProperty("preauth")) {
         var preauth = getPreauth(entry.payload.preauth);
-        if (isErr(preauth)) return false;
+        if (isErr(preauth) || preauth === HC.HashNotFound) return false;
         if (preauth.amount != -entry.amount) {
             return false;
         }
@@ -78,7 +78,7 @@ function validateTransaction(entry,balanceFunc,params) {
 
     if (isPreauthTransaction) {
         var preauth = getPreauth(entry.preauth);
-        if (isErr(preauth)) return false;
+        if (isErr(preauth) || preauth === HC.HashNotFound) return false;
     }
 
     var creditLimit = getCreditLimit();
@@ -339,7 +339,7 @@ function preauthCreate(params) {
  */
 function preauthCancel(hash) {
     var preauth = get(hash,{Local:true});
-    if (isErr(preauth)) return preauth;
+    if (isErr(preauth) || preauth === HC.HashNotFound) return preauth;
     var entry = {
         amount: -preauth.amount,
         payload: {preauth:hash}
@@ -410,8 +410,4 @@ function getMe() {
 function getCreditLimit() {
     var cl = property("creditLimit");
     return -parseInt(cl);
-}
-
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
 }

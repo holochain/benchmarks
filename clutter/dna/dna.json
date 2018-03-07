@@ -146,7 +146,7 @@
             "BridgeTo": ""
         }
     ],
-    "RequiresVersion": 20,
+    "RequiresVersion": 21,
     "DHTConfig": {
         "HashType": "sha2-256",
         "NeighborhoodSize": 0
