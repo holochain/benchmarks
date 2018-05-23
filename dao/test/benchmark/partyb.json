@@ -2,7 +2,7 @@
     "Tests":
     [
         {
-            "Wait":3000,
+            "Wait":6000,
             "Convey":"confirm that this clone in partyb is a member",
             "Zome": "congress",
             "FnName": "getMembers",
@@ -11,7 +11,7 @@
             "Regexp": "{\"address\":\"%key%\",\"memberSince\":.*,\"name\":\"partyb.%clone%@.*\"}"
         },
         {
-            "Time":5000,
+            "Time":10000,
             "Convey": "and vote against all the proposals",
             "Zome": "congress",
             "Raw": true,
