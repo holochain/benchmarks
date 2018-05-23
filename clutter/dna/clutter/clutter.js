@@ -59,17 +59,17 @@ function postMod(params) {
 }
 
 function getPost(params) {
-  var post, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
-  if (isErr(rawPost) || rawPost === HC.HashNotFound) {
-    return rawPost;
-  } else {
+  var post, rawPost = get(params.postHash, {GetMask:HC.GetMask.All});
+  if (isErr(rawPost) || rawPost === HC.HashNotFound || rawPost.EntryType != "post") {
+    return null;
+  }
+
     post = {
       post: rawPost.Entry,
       author: rawPost.Sources[0],
       H: params.postHash
     };
     return post;
-  }
 }
 
 // TODO add "last 10" or "since timestamp" when query info is supported
