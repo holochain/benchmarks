@@ -7,9 +7,6 @@
         "language": "en"
     },
     "PropertiesSchemaFile": "properties_schema.json",
-    "BasedOn": {
-        "H": null
-    },
     "Zomes": [
         {
             "Name": "clutter",
