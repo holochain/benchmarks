@@ -1,0 +1,23 @@
+sudo: required
+language: node_js
+node_js:
+  - '8'
+services:
+  - docker
+script:
+  - cd approvedList
+  - docker run --rm -v "$(pwd):/approvedList" holochain/holochain-proto:develop bash -c "cd /approvedList; hcdev test"
+  - docker run --rm -v "$(pwd):/approvedList" holochain/holochain-proto:develop bash -c "cd /approvedList; hcdev scenario benchmark"
+  - cd ..
+  - cd clutter
+  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev test"
+  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev scenario benchmark"
+  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev scenario scaling"
+  - cd ..
+  - cd dao
+  - docker run --rm -v "$(pwd):/dao" holochain/holochain-proto:develop bash -c "cd /dao; hcdev test"
+  - docker run --rm -v "$(pwd):/dao" holochain/holochain-proto:develop bash -c "cd /dao; hcdev scenario benchmark"
+  - cd ..
+  - cd sorting
+  - docker run --rm -v "$(pwd):/sorting" holochain/holochain-proto:develop bash -c "cd /sorting; hcdev test"
+  - docker run --rm -v "$(pwd):/sorting" holochain/holochain-proto:develop bash -c "cd /sorting; hcdev scenario benchmark"
