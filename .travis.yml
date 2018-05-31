@@ -12,7 +12,6 @@ script:
   - cd clutter
   - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev test"
   - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev scenario benchmark"
-  - docker run --rm -v "$(pwd):/clutter" holochain/holochain-proto:develop bash -c "cd /clutter; hcdev scenario scaling"
   - cd ..
   - cd dao
   - docker run --rm -v "$(pwd):/dao" holochain/holochain-proto:develop bash -c "cd /dao; hcdev test"
