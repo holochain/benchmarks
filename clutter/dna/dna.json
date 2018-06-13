@@ -7,13 +7,11 @@
         "language": "en"
     },
     "PropertiesSchemaFile": "properties_schema.json",
-    "BasedOn": {
-        "H": null
-    },
     "Zomes": [
         {
             "Name": "clutter",
             "Description": "zome that implements micro-blogging",
+            "Config":{"ErrorHandling":"returnErrorValue"},
             "CodeFile": "clutter.js",
             "Entries": [
                 {
@@ -145,7 +143,7 @@
             "BridgeTo": ""
         }
     ],
-    "RequiresVersion": 18,
+    "RequiresVersion": 21,
     "DHTConfig": {
         "HashType": "sha2-256",
         "NeighborhoodSize": 0

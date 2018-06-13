@@ -2,7 +2,7 @@
     "Tests":
     [
         {
-            "Wait":3000,
+            "Wait":6000,
             "Convey":"confirm that this clone in partya is a member",
             "Zome": "congress",
             "FnName": "getMembers",
@@ -28,7 +28,7 @@
             "Output": "%h1%"
         },
         {
-            "Time":5000,
+            "Time":10000,
             "Convey": "and vote in favor of their own parties proposals",
             "Zome": "congress",
             "Raw": true,
@@ -36,7 +36,7 @@
             "Output": "4"
         },
         {
-            "Time":19000,
+            "Time":25000,
             "Convey": "it should return current voting status",
             "Zome": "congress",
             "FnName": "votingStatus",

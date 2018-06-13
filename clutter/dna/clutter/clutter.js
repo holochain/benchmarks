@@ -59,17 +59,17 @@ function postMod(params) {
 }
 
 function getPost(params) {
-  var post, rawPost = get(params.postHash,{GetMask:HC.GetMask.All});
-  if (isErr(rawPost)) {
-    return rawPost;
-  } else {
+  var post, rawPost = get(params.postHash, {GetMask:HC.GetMask.All});
+  if (isErr(rawPost) || rawPost === HC.HashNotFound || rawPost.EntryType != "post") {
+    return null;
+  }
+
     post = {
-      post: JSON.parse(rawPost.Entry),
+      post: rawPost.Entry,
       author: rawPost.Sources[0],
       H: params.postHash
     };
     return post;
-  }
 }
 
 // TODO add "last 10" or "since timestamp" when query info is supported
@@ -182,17 +182,12 @@ function addHandle(handle) {
     return key;
 }
 
-// helper function to determine if value returned from holochain function is an error
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
-}
-
 // helper function to do getLinks call, handle the no-link error case, and copy the returned entry values into a nicer array
 function doGetLinkLoad(base, tag) {
     // get the tag from the base in the DHT
     var links = getLinks(base, tag,{Load:true});
     if (isErr(links)) {
-        links = [];
+        return links;
     } else {
         links = links;
     }
@@ -211,7 +206,7 @@ function doGetLink(base,tag) {
     // get the tag from the base in the DHT
     var links = getLinks(base, tag,{Load:false});
     if (isErr(links)) {
-        links = [];
+        return links;
     }
      else {
         links = links;
@@ -320,7 +315,7 @@ function validateMod(entry_type,entry,header,replaces,pkg,sources) {
         // check that source is same as creator
         if (orig.Sources.length !=1 || orig.Sources[0] != sources[0]) {return false;}
 
-        var orig_message = JSON.parse(orig.Entry).message;
+        var orig_message = orig.Entry.message;
         // message must actually be different
         return orig_message != entry.message;
     }

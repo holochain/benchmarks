@@ -94,7 +94,7 @@
             "Zome": "transactions",
             "FnName": "preauthCancel",
             "Input": "QmVGtdTZdTFaLsaj2RwdVG8jcjNNcp1DE914DKZ2kHmXHa",
-            "Output": {"message":"hash not found","name":"HolochainError"}
+            "Output": null
         },
         {
             "Convey": "Cancel Preauth on uncomplete proposal should fail",

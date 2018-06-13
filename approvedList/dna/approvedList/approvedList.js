@@ -165,8 +165,7 @@ function addressArrayCreate (mapping) {
  * @return {array} the mapping
  */
 function addressArrayRead (hash) {
-    var json = get(hash);
-    return JSON.parse(json);
+    return get(hash);
 }
 
 /**
@@ -175,16 +174,8 @@ function addressArrayRead (hash) {
  */
 function getArray() {
     var lks = getLinks(App.DNA.Hash,"array");
-    if (isErr(lks)) {
+    if (isErr(lks) || lks.length == 0) {
         return "";
     }
-
     return lks[0].Hash;
-}
-
-// utilities
-
-
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
 }

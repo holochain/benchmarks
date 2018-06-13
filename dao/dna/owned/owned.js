@@ -193,10 +193,6 @@ function getMe() {
     return App.Key.Hash;
 }
 
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
-}
-
 function getProgenitorHash() {
     return property("progenitorHash");
 }
@@ -208,9 +204,11 @@ function getProgenitorIdenity() {
 function getOwner() {
     var ownerBaseHash = ownerBase();
     var links = getLinks(ownerBaseHash,"owner");
+
     var owner;
     if (isErr(links)) {
-        links = [];
+        return links;
+    } else if (links.length == 0) {
         owner = getProgenitorHash();
     } else {
         owner = links[0].Hash;

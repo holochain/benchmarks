@@ -61,13 +61,6 @@ We recognize that different hosts have different costs associated with the diffe
 ### Gossip & Resilience
 A significant portion of the computing overhead in Holochain is attributable to gossip which establishes and maintains the sharded copies of all the application data.  Factoring in this cost into the Holo fuel pricing is very difficult ahead of real-world use cases.  In our benchmarking we have recorded how much of the bandwidth use was due to gossip and simply lumped it into the total.  When Holo launches these overhead costs may be separated out to be accounted for using other methods for more precise value accounting.
 
-## Pricing Mechanics and Evolution
-### hosts set their own prices
-### displaying average prices
-### charging per application by it's usage profile
-
-
-
 ## Comparison Methodology
 
 1) _Scenarios_:  We have created scenarios of usage of the Smart Contract/Holochain Application, for example for the DAO application the scenario consists of an owner setting up a fixed number of members of the DAO, the members then create and voting on proposal and finalize them.

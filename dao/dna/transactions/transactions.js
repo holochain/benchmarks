@@ -24,15 +24,12 @@ function isWithinMyCreditLimit(entry) {
 
 function getCompletion(proposalHash) {
     var links = getLinks(proposalHash,"completion",{Load:true});
-    if (isErr(links)) return undefined;
+    if (isErr(links) || links.length == 0) return undefined;
     return links[0].Entry;
 }
 
 function getPreauth(preauthHash) {
-    var preauth = get(preauthHash);
-    if (isErr(preauth)) return preauth;
-    preauth = JSON.parse(preauth);
-    return preauth;
+    return get(preauthHash);
 }
 
 function validatePreauth(entry,balanceFunc,params) {
@@ -40,7 +37,7 @@ function validatePreauth(entry,balanceFunc,params) {
     // if this is a preauth cancel it will have the preauth in the payload
     if (entry.payload.hasOwnProperty("preauth")) {
         var preauth = getPreauth(entry.payload.preauth);
-        if (isErr(preauth)) return false;
+        if (isErr(preauth) || preauth === HC.HashNotFound) return false;
         if (preauth.amount != -entry.amount) {
             return false;
         }
@@ -81,7 +78,7 @@ function validateTransaction(entry,balanceFunc,params) {
 
     if (isPreauthTransaction) {
         var preauth = getPreauth(entry.preauth);
-        if (isErr(preauth)) return false;
+        if (isErr(preauth) || preauth === HC.HashNotFound) return false;
     }
 
     var creditLimit = getCreditLimit();
@@ -315,7 +312,6 @@ function transactionRead(params) {
             debug(e);
         }
     }
-
     return transaction;
 }
 
@@ -343,8 +339,7 @@ function preauthCreate(params) {
  */
 function preauthCancel(hash) {
     var preauth = get(hash,{Local:true});
-    if (isErr(preauth)) return preauth;
-    preauth = JSON.parse(preauth);
+    if (isErr(preauth) || preauth === HC.HashNotFound) return preauth;
     var entry = {
         amount: -preauth.amount,
         payload: {preauth:hash}
@@ -415,8 +410,4 @@ function getMe() {
 function getCreditLimit() {
     var cl = property("creditLimit");
     return -parseInt(cl);
-}
-
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
 }

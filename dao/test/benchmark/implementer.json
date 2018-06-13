@@ -9,7 +9,7 @@
             "Exposure":"public"
         },
         {
-            "Time": 15000,
+            "Time": 20000,
             "Convey": "implementer executes proposals should succeed",
             "Zome": "congress",
             "Raw": true,
@@ -17,7 +17,7 @@
             "RegExp": "proposals:4.*\"%h11%\",\"%h8%\",\"%h5%\",\"%h2%\"]"
         },
         {
-            "Time": 19000,
+            "Time": 25000,
             "Convey":"implementer's balance after excecution should be the funding",
             "Zome": "transactions",
             "FnName": "getBalance",

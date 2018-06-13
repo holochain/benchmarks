@@ -174,9 +174,7 @@ function sortArrayCreate (array) {
  * @return {array} the array
  */
 function sortArrayRead (hash) {
-    var json = get(hash);
-    var entry = JSON.parse(json);
-    return entry;
+    return get(hash);
 }
 
 /**
@@ -185,7 +183,7 @@ function sortArrayRead (hash) {
  */
 function getArray() {
     var lks = getLinks(App.DNA.Hash,"array");
-    if (isErr(lks)) {
+    if (isErr(lks) || lks.length==0) {
         return "";
     }
 
@@ -193,11 +191,6 @@ function getArray() {
 }
 
 // utilities
-
-
-function isErr(result) {
-    return ((typeof result === 'object') && result.name == "HolochainError");
-}
 
 function sortNumber(a,b) {
     return a - b;

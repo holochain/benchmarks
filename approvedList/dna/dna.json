@@ -7,13 +7,11 @@
         "language": "en"
     },
     "PropertiesSchemaFile": "properties_schema.json",
-    "BasedOn": {
-        "H": null
-    },
     "Zomes": [
         {
             "Name": "approvedList",
             "Description": "",
+            "Config":{"ErrorHandling":"returnErrorValue"},
             "CodeFile": "approvedList.js",
             "Entries": [
                 {
@@ -56,7 +54,7 @@
             "BridgeTo": ""
         }
     ],
-    "RequiresVersion": 0,
+    "RequiresVersion": 20,
     "DHTConfig": {
         "HashType": "sha2-256",
         "NeighborhoodSize": 0
